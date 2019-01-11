@@ -10,12 +10,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import topaidi.app.config.ContextConfig;
 import topaidi.app.dao.AdminDao;
 import topaidi.app.model.persons.Admin;
 
 @Transactional
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ContextConfig.class)
 public class AdminDaoImplTest {
@@ -88,7 +90,7 @@ public class AdminDaoImplTest {
 		adminDao.insert(var1);
 		adminDao.insert(var2);
 		
-		adminDao.deleteByKey(1);	
+		adminDao.deleteByKey(var1.getId());	
 		
 		assertTrue(adminDao.findAll().size() == 1);		
 	}

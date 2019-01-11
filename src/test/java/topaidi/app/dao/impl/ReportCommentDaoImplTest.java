@@ -2,14 +2,28 @@ package topaidi.app.dao.impl;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import topaidi.app.model.reports.*;
+import topaidi.app.config.ContextConfig;
+import topaidi.app.dao.ReportCommentDao;
+import topaidi.app.model.reports.ReportComment;
 
+@Transactional
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=ContextConfig.class)
 public class ReportCommentDaoImplTest {
-	ReportCommentDaoImpl reportCommentDao;
+	
+	@Autowired
+	ReportCommentDao reportCommentDao;
 	ReportComment var1;
 
 	@Before

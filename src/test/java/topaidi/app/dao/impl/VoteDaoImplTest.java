@@ -2,15 +2,28 @@ package topaidi.app.dao.impl;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import topaidi.app.config.ContextConfig;
+import topaidi.app.dao.VoteDao;
 import topaidi.app.model.ideas.Vote;
-import topaidi.app.model.persons.Brain;
 
+@Transactional
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=ContextConfig.class)
 public class VoteDaoImplTest {
-	VoteDaoImpl voteDao;
+	
+	@Autowired
+	VoteDao voteDao;
 	Vote var1;
 
 	@Before
