@@ -28,7 +28,6 @@ public class IdeaDaoImplTest {
 
 	@Before
 	public void init() {
-		ideaDao = new IdeaDaoImpl();
 		var1 = new Idea();
 		var1.setDescription("Idea 1");
 	}
@@ -52,14 +51,14 @@ public class IdeaDaoImplTest {
 	public void testFindByKey() {
 		ideaDao.insert(var1);
 		
-		assertTrue(ideaDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(ideaDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
 	public void testInsert() {
 		ideaDao.insert(var1);
 
-		assertTrue(ideaDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(ideaDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class IdeaDaoImplTest {
 		var1.setDescription("Toto");
 		ideaDao.update(var1);
 		
-		assertTrue(var1.getDescription().equals(ideaDao.findByKey(1).getDescription()));		
+		assertTrue(var1.getDescription().equals(ideaDao.findByKey(var1.getId()).getDescription()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class IdeaDaoImplTest {
 		ideaDao.insert(var1);
 		ideaDao.insert(var2);
 		
-		ideaDao.deleteByKey(1);	
+		ideaDao.deleteByKey(var1.getId());	
 		
 		assertTrue(ideaDao.findAll().size() == 1);		
 	}

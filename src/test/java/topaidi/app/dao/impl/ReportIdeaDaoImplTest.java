@@ -28,7 +28,6 @@ public class ReportIdeaDaoImplTest {
 
 	@Before
 	public void init() {
-		reportIdeaDao = new ReportIdeaDaoImpl();
 		var1 = new ReportIdea();
 		var1.setDescription("ReportIdea 1");
 	}
@@ -52,14 +51,14 @@ public class ReportIdeaDaoImplTest {
 	public void testFindByKey() {
 		reportIdeaDao.insert(var1);
 		
-		assertTrue(reportIdeaDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(reportIdeaDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
 	public void testInsert() {
 		reportIdeaDao.insert(var1);
 
-		assertTrue(reportIdeaDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(reportIdeaDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class ReportIdeaDaoImplTest {
 		var1.setDescription("Toto");
 		reportIdeaDao.update(var1);
 		
-		assertTrue(var1.getDescription().equals(reportIdeaDao.findByKey(1).getDescription()));		
+		assertTrue(var1.getDescription().equals(reportIdeaDao.findByKey(var1.getId()).getDescription()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class ReportIdeaDaoImplTest {
 		reportIdeaDao.insert(var1);
 		reportIdeaDao.insert(var2);
 		
-		reportIdeaDao.deleteByKey(1);	
+		reportIdeaDao.deleteByKey(var1.getId());	
 		
 		assertTrue(reportIdeaDao.findAll().size() == 1);		
 	}

@@ -21,6 +21,7 @@ import topaidi.app.model.persons.Admin;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ContextConfig.class)
 public class AdminDaoImplTest {
+	
 	@Autowired
 	AdminDao adminDao;
 	Admin var1;
@@ -50,14 +51,14 @@ public class AdminDaoImplTest {
 	public void testFindByKey() {
 		adminDao.insert(var1);
 		
-		assertTrue(adminDao.findByKey(1).getPseudo().equals(var1.getPseudo()));
+		assertTrue(adminDao.findByKey(var1.getId()).getPseudo().equals(var1.getPseudo()));
 	}
 
 	@Test
 	public void testInsert() {
 		adminDao.insert(var1);
 
-		assertTrue(adminDao.findByKey(1).getPseudo().equals(var1.getPseudo()));
+		assertTrue(adminDao.findByKey(var1.getId()).getPseudo().equals(var1.getPseudo()));
 	}
 
 	@Test
@@ -66,7 +67,7 @@ public class AdminDaoImplTest {
 		var1.setPseudo("Toto");
 		adminDao.update(var1);
 		
-		assertTrue(var1.getPseudo().equals(adminDao.findByKey(1).getPseudo()));		
+		assertTrue(var1.getPseudo().equals(adminDao.findByKey(var1.getId()).getPseudo()));		
 	}
 
 	@Test
@@ -94,6 +95,5 @@ public class AdminDaoImplTest {
 		
 		assertTrue(adminDao.findAll().size() == 1);		
 	}
-
 	
 }

@@ -28,7 +28,6 @@ public class CommentDaoImplTest {
 
 	@Before
 	public void init() {
-		categoryDao = new CommentDaoImpl();
 		var1 = new Comment();
 		var1.setDescription("Comment 1");
 	}
@@ -52,14 +51,14 @@ public class CommentDaoImplTest {
 	public void testFindByKey() {
 		categoryDao.insert(var1);
 		
-		assertTrue(categoryDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(categoryDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
 	public void testInsert() {
 		categoryDao.insert(var1);
 
-		assertTrue(categoryDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(categoryDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class CommentDaoImplTest {
 		var1.setDescription("Toto");
 		categoryDao.update(var1);
 		
-		assertTrue(var1.getDescription().equals(categoryDao.findByKey(1).getDescription()));		
+		assertTrue(var1.getDescription().equals(categoryDao.findByKey(var1.getId()).getDescription()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class CommentDaoImplTest {
 		categoryDao.insert(var1);
 		categoryDao.insert(var2);
 		
-		categoryDao.deleteByKey(1);	
+		categoryDao.deleteByKey(var1.getId());	
 		
 		assertTrue(categoryDao.findAll().size() == 1);		
 	}

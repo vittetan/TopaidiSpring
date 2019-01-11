@@ -28,7 +28,6 @@ public class ReportCommentDaoImplTest {
 
 	@Before
 	public void init() {
-		reportCommentDao = new ReportCommentDaoImpl();
 		var1 = new ReportComment();
 		var1.setDescription("ReportComment 1");
 	}
@@ -52,14 +51,14 @@ public class ReportCommentDaoImplTest {
 	public void testFindByKey() {
 		reportCommentDao.insert(var1);
 		
-		assertTrue(reportCommentDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(reportCommentDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
 	public void testInsert() {
 		reportCommentDao.insert(var1);
 
-		assertTrue(reportCommentDao.findByKey(1).getDescription().equals(var1.getDescription()));
+		assertTrue(reportCommentDao.findByKey(var1.getId()).getDescription().equals(var1.getDescription()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class ReportCommentDaoImplTest {
 		var1.setDescription("Toto");
 		reportCommentDao.update(var1);
 		
-		assertTrue(var1.getDescription().equals(reportCommentDao.findByKey(1).getDescription()));		
+		assertTrue(var1.getDescription().equals(reportCommentDao.findByKey(var1.getId()).getDescription()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class ReportCommentDaoImplTest {
 		reportCommentDao.insert(var1);
 		reportCommentDao.insert(var2);
 		
-		reportCommentDao.deleteByKey(1);	
+		reportCommentDao.deleteByKey(var1.getId());	
 		
 		assertTrue(reportCommentDao.findAll().size() == 1);		
 	}

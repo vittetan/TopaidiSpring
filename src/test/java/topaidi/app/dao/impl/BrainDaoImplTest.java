@@ -28,7 +28,6 @@ public class BrainDaoImplTest {
 
 	@Before
 	public void init() {
-		brainDao = new BrainDaoImpl(); 
 		var1 = new Brain();
 		var1.setPseudo("Brain 1");
 	}
@@ -52,14 +51,14 @@ public class BrainDaoImplTest {
 	public void testFindByKey() {
 		brainDao.insert(var1);
 		
-		assertTrue(brainDao.findByKey(1).getPseudo().equals(var1.getPseudo()));
+		assertTrue(brainDao.findByKey(var1.getId()).getPseudo().equals(var1.getPseudo()));
 	}
 
 	@Test
 	public void testInsert() {
 		brainDao.insert(var1);
 
-		assertTrue(brainDao.findByKey(1).getPseudo().equals(var1.getPseudo()));
+		assertTrue(brainDao.findByKey(var1.getId()).getPseudo().equals(var1.getPseudo()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class BrainDaoImplTest {
 		var1.setPseudo("Toto");
 		brainDao.update(var1);
 		
-		assertTrue(var1.getPseudo().equals(brainDao.findByKey(1).getPseudo()));		
+		assertTrue(var1.getPseudo().equals(brainDao.findByKey(var1.getId()).getPseudo()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class BrainDaoImplTest {
 		brainDao.insert(var1);
 		brainDao.insert(var2);
 		
-		brainDao.deleteByKey(1);	
+		brainDao.deleteByKey(var1.getId());	
 		
 		assertTrue(brainDao.findAll().size() == 1);		
 	}

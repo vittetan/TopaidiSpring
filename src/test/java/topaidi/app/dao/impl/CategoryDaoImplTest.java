@@ -28,7 +28,6 @@ public class CategoryDaoImplTest {
 
 	@Before
 	public void init() {
-		categoryDao = new CategoryDaoImpl();
 		var1 = new Category();
 		var1.setName("Category 1");
 	}
@@ -52,14 +51,14 @@ public class CategoryDaoImplTest {
 	public void testFindByKey() {
 		categoryDao.insert(var1);
 		
-		assertTrue(categoryDao.findByKey(1).getName().equals(var1.getName()));
+		assertTrue(categoryDao.findByKey(var1.getId()).getName().equals(var1.getName()));
 	}
 
 	@Test
 	public void testInsert() {
 		categoryDao.insert(var1);
 
-		assertTrue(categoryDao.findByKey(1).getName().equals(var1.getName()));
+		assertTrue(categoryDao.findByKey(var1.getId()).getName().equals(var1.getName()));
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class CategoryDaoImplTest {
 		var1.setName("Toto");
 		categoryDao.update(var1);
 		
-		assertTrue(var1.getName().equals(categoryDao.findByKey(1).getName()));		
+		assertTrue(var1.getName().equals(categoryDao.findByKey(var1.getId()).getName()));		
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class CategoryDaoImplTest {
 		categoryDao.insert(var1);
 		categoryDao.insert(var2);
 		
-		categoryDao.deleteByKey(1);	
+		categoryDao.deleteByKey(var1.getId());	
 		
 		assertTrue(categoryDao.findAll().size() == 1);		
 	}

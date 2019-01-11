@@ -28,7 +28,6 @@ public class VoteDaoImplTest {
 
 	@Before
 	public void init() {
-		voteDao = new VoteDaoImpl();
 		var1 = new Vote();
 		var1.setTop(true);
 	}
@@ -52,14 +51,14 @@ public class VoteDaoImplTest {
 	public void testFindByKey() {
 		voteDao.insert(var1);
 		
-		assertTrue(voteDao.findByKey(1).isTop() == true);
+		assertTrue(voteDao.findByKey(var1.getId()).isTop() == true);
 	}
 
 	@Test
 	public void testInsert() {
 		voteDao.insert(var1);
 
-		assertTrue(voteDao.findByKey(1).isTop() == true);
+		assertTrue(voteDao.findByKey(var1.getId()).isTop() == true);
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class VoteDaoImplTest {
 		var1.setTop(false);
 		voteDao.update(var1);
 		
-		assertTrue(voteDao.findByKey(1).isTop() == false);
+		assertTrue(voteDao.findByKey(var1.getId()).isTop() == false);
 	}
 
 	@Test
@@ -92,7 +91,7 @@ public class VoteDaoImplTest {
 		voteDao.insert(var1);
 		voteDao.insert(var2);
 		
-		voteDao.deleteByKey(1);	
+		voteDao.deleteByKey(var1.getId());	
 		
 		assertTrue(voteDao.findAll().size() == 1);
 	}
