@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -48,24 +49,26 @@ public class IdeaDaoImpl implements IdeaDao {
 		em.remove(idea);
 	}
 	
-	
 
 	@Override
-	public List<Comment> getAllComments() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getAllComments(Integer id) {
+		TypedQuery<Comment> query = em.createQuery(
+                "SELECT c FROM Comment c WHERE c.idea.id = :id", Comment.class);
+        return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<Vote> getAllVotes() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Vote> getAllVotes(Integer id) {
+		TypedQuery<Vote> query = em.createQuery(
+                "SELECT v FROM Vote v WHERE v.idea.id = :id", Vote.class);
+        return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<ReportIdea> getAllReportsIdea() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReportIdea> getAllReportsIdea(Integer id) {
+		TypedQuery<ReportIdea> query = em.createQuery(
+                "SELECT ri FROM ReportIdea ri WHERE ri.idea.id = :id", ReportIdea.class);
+        return query.setParameter("id", id).getResultList();
 	}
 
 }
