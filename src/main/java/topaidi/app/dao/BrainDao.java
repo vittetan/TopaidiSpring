@@ -11,10 +11,11 @@ import topaidi.app.model.reports.ReportIdea;
 
 public interface BrainDao extends GenericDao<Brain, Integer>{
 
-	public List<Idea> getAllIdeas();
-	public List<Comment> getAllComments();
-	public List<Vote> getAllVotes();
-	public List<ReportIdea> getAllReportsIdea();
-	public List<ReportComment> getAllReportsComment();
-		
+	public List<Idea> getAllIdeas(Integer id);
+	public List<Comment> getAllComments(Integer id);
+	public List<Vote> getAllVotes(Integer id);
+	public List<ReportIdea> getAllReportsIdea(Integer id);
+	public List<ReportComment> getAllReportsComment(Integer id);
+	
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -52,33 +53,38 @@ public class BrainDaoImpl implements BrainDao {
 	
 	
 	@Override
-	public List<Idea> getAllIdeas() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Idea> getAllIdeas(Integer id) {
+		TypedQuery<Idea> query = em.createQuery(
+	            "SELECT i FROM Idea i WHERE i.brain.id = :id", Idea.class);
+	    return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<Comment> getAllComments() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getAllComments(Integer id) {
+		TypedQuery<Comment> query = em.createQuery(
+	            "SELECT c FROM Comment c WHERE c.brain.id = :id", Comment.class);
+	    return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<Vote> getAllVotes() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Vote> getAllVotes(Integer id) {
+		TypedQuery<Vote> query = em.createQuery(
+	            "SELECT v FROM Vote v WHERE v.brain.id = :id", Vote.class);
+	    return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<ReportIdea> getAllReportsIdea() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReportIdea> getAllReportsIdea(Integer id) {
+		TypedQuery<ReportIdea> query = em.createQuery(
+	            "SELECT ri FROM Idea ri WHERE ri.brain.id = :id", ReportIdea.class);
+	    return query.setParameter("id", id).getResultList();
 	}
 
 	@Override
-	public List<ReportComment> getAllReportsComment() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReportComment> getAllReportsComment(Integer id) {
+		TypedQuery<ReportComment> query = em.createQuery(
+	            "SELECT rc FROM Idea rc WHERE rc.brain.id = :id", ReportComment.class);
+	    return query.setParameter("id", id).getResultList();
 	}
 
 	
