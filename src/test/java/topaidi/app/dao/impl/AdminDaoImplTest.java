@@ -17,7 +17,7 @@ import topaidi.app.model.persons.Admin;
 
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={ContextConfig.class})
+@ContextConfiguration(classes=ContextConfig.class)
 public class AdminDaoImplTest {
 	@Autowired
 	AdminDao adminDao;

@@ -10,7 +10,7 @@
     </init-param>
     <init-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.topaidi.config.ContextConfig</param-value>
+        <param-value>topaidi.app.config.ContextConfig</param-value>
     </init-param>
    <load-on-startup>1</load-on-startup>
  </servlet>
