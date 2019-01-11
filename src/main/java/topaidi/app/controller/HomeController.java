@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
-import topaidi.app.model.persons.Admin;
 
 @Controller
 public class HomeController {
@@ -28,13 +27,18 @@ public class HomeController {
 			return "home/home";
  	}
 	
-	@GetMapping("")
+	@GetMapping("/newBrain")
+	public String newBrain(Model model) {
+			return "home/newBrain";
+ 	}
+		
+	/*@GetMapping("")
 	public String loginAdmin(Model model) {
 		model.addAttribute("admin", new Admin());
 		return null;
 	}
 	
-	/* >@PostMapping("/processForm")
+	 >@PostMapping("/processForm")
 	public String adminhome(@ModelAttribute("admin") Admin admin, Model model) {
 		for(Admin a : aDao.findAll()) {
 			if(admin.getLogin().equals(a.getLogin()) || admin.getPassword().equals(a.getPassword()) ) {
