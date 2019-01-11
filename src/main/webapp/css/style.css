@@ -1,0 +1,44 @@
+header {  
+	font-family: 'Righteous', cursive;
+	font-size: 45px;
+	color: white;
+	display: inline-block;
+	height: 110px;
+	width: 900px;
+	border: 1px solid;
+	border-color: black;
+	padding: 30px 20px;
+	margin: 0;
+	background-color: black;
+}	
+
+body > div {
+	width:900px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+nav {  
+	font-family: Arial;
+	display: inline-block;
+	height: 45px;
+	width: 900px;
+	border: 1px solid black;
+	padding: 10px;
+	background-color: #c0c0c0;
+	padding-left: 0px;
+}
+
+nav a {  
+	display: inline;
+	color: black;
+	text-decoration: none;
+	margin: 20px;
+}
+
+a:hover {
+    font-style: italic;
+    color: black;
+    text-decoration: none;
+}
+
