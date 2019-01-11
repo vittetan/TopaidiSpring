@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
+import topaidi.app.dao.IdeaDao;
 
 @Controller
 public class HomeController {
@@ -22,16 +23,22 @@ public class HomeController {
 	@Autowired
 	AdminDao aDao;
 	
+	@Autowired
+	IdeaDao iDao;
+	
 	@RequestMapping("/home")
 	public String home(Model model) {
-			return "home/home";
+		model.addAttribute("ideas", iDao.findAll());
+		return "home/home";
  	}
 	
 	@GetMapping("/newBrain")
 	public String newBrain(Model model) {
 			return "home/newBrain";
  	}
-		
+	
+	
+	
 	/*@GetMapping("")
 	public String loginAdmin(Model model) {
 		model.addAttribute("admin", new Admin());
