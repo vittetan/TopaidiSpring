@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import topaidi.app.model.ideas.Idea;
-import topaidi.app.utils.Application;
 
 public class IdeaDaoImplTest {
 	IdeaDaoImpl ideaDao;
@@ -82,11 +81,6 @@ public class IdeaDaoImplTest {
 		ideaDao.deleteByKey(1);	
 		
 		assertTrue(ideaDao.findAll().size() == 1);		
-	}
-
-	@After
-	public void stop() {
-		Application.stop();
 	}
 
 }

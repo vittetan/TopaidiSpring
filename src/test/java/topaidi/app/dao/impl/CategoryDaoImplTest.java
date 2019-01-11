@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import topaidi.app.model.categories.Category;
-import topaidi.app.utils.Application;
 
 public class CategoryDaoImplTest {
 	CategoryDaoImpl categoryDao;
@@ -84,9 +83,6 @@ public class CategoryDaoImplTest {
 		assertTrue(categoryDao.findAll().size() == 1);		
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
+
 
 }

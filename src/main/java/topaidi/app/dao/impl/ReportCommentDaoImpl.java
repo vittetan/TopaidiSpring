@@ -1,135 +1,50 @@
 package topaidi.app.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.ReportCommentDao;
 import topaidi.app.model.reports.ReportComment;
-import topaidi.app.model.reports.ReportComment;
-import topaidi.app.utils.Application;
 
+@Repository
+@Transactional
 public class ReportCommentDaoImpl implements ReportCommentDao {
 
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
 	public List<ReportComment> findAll() {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		List<ReportComment> l = new ArrayList<>();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createQuery("select rc from ReportComment rc");
-			l = q.getResultList();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return l;
+		return em.createQuery("from ReportComment reportComment").getResultList();
 	}
 
-	@Override
 	public ReportComment findByKey(Integer id) {
-		ReportComment rc = new ReportComment();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			rc = em.find(ReportComment.class, id);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return rc;
+		return em.find(ReportComment.class,id);
 	}
 
-	@Override
-	public void insert(ReportComment rc) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(rc);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+	public void insert(ReportComment reportComment) {
+		em.persist(reportComment);
 	}
 
-	@Override
-	public ReportComment update(ReportComment rc) {
-		ReportComment rcUpdated = new ReportComment();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(rc);
-			rcUpdated = em.find(ReportComment.class, rc.getId());
-			em.getTransaction().commit();
-			} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return rcUpdated;
+	public ReportComment update(ReportComment reportComment) {
+		ReportComment reportCommenteMerged = em.merge(reportComment);
+		return reportCommenteMerged;
 	}
 
-	@Override
-	public void delete(ReportComment rc) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			ReportComment rcToDelete = em.find(ReportComment.class, rc.getId());
-			if (rcToDelete != null) {
-				em.getTransaction().begin();
-				em.remove(rcToDelete);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		
+	public void delete(ReportComment reportComment) {
+		ReportComment reportCommentToDelete = em.merge(reportComment);
+		em.remove(reportCommentToDelete);
 	}
 
-	@Override
 	public void deleteByKey(Integer id) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			ReportComment rc = em.find(ReportComment.class, id);
-			if (rc != null) {
-				System.out.println("Found");
-				em.getTransaction().begin();
-				em.remove(rc);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		
+		ReportComment reportComment = em.find(ReportComment.class,id);
+		em.remove(reportComment);
 	}
+	
+	
 
 }

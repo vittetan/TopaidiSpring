@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("com.monapp.dao")
+@ComponentScan("topaidi.app.dao")
 @EnableTransactionManagement
 public class JpaConfig {
 	@Bean
@@ -46,7 +46,7 @@ public class JpaConfig {
 
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan("com.monapp.model");
+		em.setPackagesToScan("topaidi.app.model");
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 

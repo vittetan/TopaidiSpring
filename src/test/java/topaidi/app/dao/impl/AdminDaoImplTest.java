@@ -2,20 +2,29 @@ package topaidi.app.dao.impl;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import topaidi.app.config.ContextConfig;
+import topaidi.app.dao.AdminDao;
 import topaidi.app.model.persons.Admin;
-import topaidi.app.utils.Application;
 
+@Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes={ContextConfig.class})
 public class AdminDaoImplTest {
-	AdminDaoImpl adminDao;
+	@Autowired
+	AdminDao adminDao;
 	Admin var1;
 
 	@Before
 	public void init() {
-		adminDao = new AdminDaoImpl();
 		var1 = new Admin();
 		var1.setPseudo("Admin 1");
 	}
@@ -84,9 +93,5 @@ public class AdminDaoImplTest {
 		assertTrue(adminDao.findAll().size() == 1);		
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
-
+	
 }

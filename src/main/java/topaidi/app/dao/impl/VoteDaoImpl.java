@@ -1,132 +1,49 @@
 package topaidi.app.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.VoteDao;
 import topaidi.app.model.ideas.Vote;
-import topaidi.app.utils.Application;
 
+@Repository
+@Transactional
 public class VoteDaoImpl implements VoteDao {
 
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
 	public List<Vote> findAll() {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		List<Vote> l = new ArrayList<>();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createQuery("select vot from Vote vot");
-			l = q.getResultList();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return l;
+		return em.createQuery("from Vote vote").getResultList();
 	}
 
-	@Override
 	public Vote findByKey(Integer id) {
-		Vote vote = new Vote();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			vote = em.find(Vote.class, id);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return vote;
+		return em.find(Vote.class,id);
 	}
 
-	@Override
 	public void insert(Vote vote) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(vote);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		em.persist(vote);
 	}
 
-	@Override
 	public Vote update(Vote vote) {
-		Vote voteUpdated = new Vote();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(vote);
-			voteUpdated = em.find(Vote.class, vote.getId());
-			em.getTransaction().commit();
-			} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return voteUpdated;
+		Vote voteeMerged = em.merge(vote);
+		return voteeMerged;
 	}
 
-	@Override
 	public void delete(Vote vote) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Vote votToDelete = em.find(Vote.class, vote.getId());
-			if (votToDelete != null) {
-				em.getTransaction().begin();
-				em.remove(votToDelete);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Vote voteToDelete = em.merge(vote);
+		em.remove(voteToDelete);
 	}
 
-	@Override
 	public void deleteByKey(Integer id) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Vote vote = em.find(Vote.class, id);
-			if (vote != null) {
-				System.out.println("Found");
-				em.getTransaction().begin();
-				em.remove(vote);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Vote vote = em.find(Vote.class,id);
+		em.remove(vote);
 	}
-
+	
+	
 }

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.topaidi.controller"})
+@ComponentScan("topaidi.app.controller")
 public class WebMvcConfig implements WebMvcConfigurer {
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

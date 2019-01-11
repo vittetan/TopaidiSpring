@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import topaidi.app.model.persons.Brain;
-import topaidi.app.utils.Application;
 
 public class BrainDaoImplTest {
 	BrainDaoImpl brainDao;
@@ -84,9 +83,6 @@ public class BrainDaoImplTest {
 		assertTrue(brainDao.findAll().size() == 1);		
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
+	
 
 }

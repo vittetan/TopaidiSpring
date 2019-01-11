@@ -1,133 +1,49 @@
 package topaidi.app.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.AdminDao;
 import topaidi.app.model.persons.Admin;
-import topaidi.app.utils.Application;
 
+@Repository
+@Transactional
 public class AdminDaoImpl implements AdminDao {
 
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
 	public List<Admin> findAll() {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		List<Admin> l = new ArrayList<>();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createQuery("select adm from Admin adm");
-			l = q.getResultList();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return l;
+		return em.createQuery("from Admin admin").getResultList();
 	}
 
-	@Override
 	public Admin findByKey(Integer id) {
-		Admin admin = new Admin();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-//			em.getTransaction().begin();
-			admin = em.find(Admin.class, id);
-//			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-//			if (em.getTransaction() != null)
-//				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return admin;
+		return em.find(Admin.class,id);
 	}
 
-	@Override
 	public void insert(Admin admin) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(admin);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		em.persist(admin);
 	}
 
-	@Override
 	public Admin update(Admin admin) {
-		Admin adminUpdated = new Admin();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(admin);
-			adminUpdated = em.find(Admin.class, admin.getId());
-			em.getTransaction().commit();
-			} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return adminUpdated;
+		Admin admineMerged = em.merge(admin);
+		return admineMerged;
 	}
 
-	@Override
 	public void delete(Admin admin) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Admin admToDelete = em.find(Admin.class, admin.getId());
-			if (admToDelete != null) {
-				em.getTransaction().begin();
-				em.remove(admToDelete);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-
+		Admin adminToDelete = em.merge(admin);
+		em.remove(adminToDelete);
 	}
 
-	@Override
 	public void deleteByKey(Integer id) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Admin admin = em.find(Admin.class, id);
-			if (admin != null) {
-				System.out.println("Found");
-				em.getTransaction().begin();
-				em.remove(admin);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Admin admin = em.find(Admin.class,id);
+		em.remove(admin);
 	}
+	
 
 }

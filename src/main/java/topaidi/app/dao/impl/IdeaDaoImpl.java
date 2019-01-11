@@ -1,136 +1,54 @@
 package topaidi.app.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.IdeaDao;
 import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.reports.ReportIdea;
-import topaidi.app.utils.Application;
 
+@Repository
+@Transactional
 public class IdeaDaoImpl implements IdeaDao {
 
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
 	public List<Idea> findAll() {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		List<Idea> l = new ArrayList<>();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createQuery("select ide from Idea ide");
-			l = q.getResultList();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return l;
+		return em.createQuery("from Idea idea").getResultList();
 	}
 
-	@Override
 	public Idea findByKey(Integer id) {
-		Idea idea = new Idea();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			idea = em.find(Idea.class, id);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return idea;
+		return em.find(Idea.class,id);
 	}
 
-	@Override
 	public void insert(Idea idea) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(idea);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		em.persist(idea);
 	}
 
-	@Override
 	public Idea update(Idea idea) {
-		Idea ideaUpdated = new Idea();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(idea);
-			ideaUpdated = em.find(Idea.class, idea.getId());
-			em.getTransaction().commit();
-			} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return ideaUpdated;
+		Idea ideaeMerged = em.merge(idea);
+		return ideaeMerged;
 	}
 
-	@Override
 	public void delete(Idea idea) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Idea ideaToDelete = em.find(Idea.class, idea.getId());
-			if (ideaToDelete != null) {
-				em.getTransaction().begin();
-				em.remove(ideaToDelete);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Idea ideaToDelete = em.merge(idea);
+		em.remove(ideaToDelete);
 	}
 
-	@Override
 	public void deleteByKey(Integer id) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Idea idea = em.find(Idea.class, id);
-			if (idea != null) {
-				System.out.println("Found");
-				em.getTransaction().begin();
-				em.remove(idea);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Idea idea = em.find(Idea.class,id);
+		em.remove(idea);
 	}
+	
+	
 
 	@Override
 	public List<Comment> getAllComments() {

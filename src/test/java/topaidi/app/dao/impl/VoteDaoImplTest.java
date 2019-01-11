@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.persons.Brain;
-import topaidi.app.utils.Application;
 
 public class VoteDaoImplTest {
 	VoteDaoImpl voteDao;
@@ -85,9 +84,5 @@ public class VoteDaoImplTest {
 		assertTrue(voteDao.findAll().size() == 1);
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
 
 }

@@ -1,11 +1,12 @@
 package topaidi.app.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.BrainDao;
 import topaidi.app.model.ideas.Comment;
@@ -14,127 +15,42 @@ import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportComment;
 import topaidi.app.model.reports.ReportIdea;
-import topaidi.app.utils.Application;
 
+@Repository
+@Transactional
 public class BrainDaoImpl implements BrainDao {
 
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
 	public List<Brain> findAll() {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		List<Brain> l = new ArrayList<>();
-		try {
-			em.getTransaction().begin();
-			Query q = em.createQuery("select bra from Brain bra");
-			l = q.getResultList();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return l;
+		return em.createQuery("from Brain brain").getResultList();
 	}
 
-	@Override
 	public Brain findByKey(Integer id) {
-		Brain brain = new Brain();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			brain = em.find(Brain.class, id);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return brain;
+		return em.find(Brain.class,id);
 	}
 
-	@Override
 	public void insert(Brain brain) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(brain);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		em.persist(brain);
 	}
 
-	@Override
 	public Brain update(Brain brain) {
-		Brain brainUpdated = new Brain();
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(brain);
-			brainUpdated = em.find(Brain.class, brain.getId());
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
-		return brainUpdated;
+		Brain braineMerged = em.merge(brain);
+		return braineMerged;
 	}
 
-	@Override
 	public void delete(Brain brain) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Brain brainToDelete = em.find(Brain.class, brain.getId());
-			if (brainToDelete != null) {
-				em.getTransaction().begin();
-				em.remove(brainToDelete);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Brain brainToDelete = em.merge(brain);
+		em.remove(brainToDelete);
 	}
 
-	@Override
 	public void deleteByKey(Integer id) {
-		EntityManager em = Application.getInstance().getEmf().createEntityManager();
-		try {
-			Brain brain = em.find(Brain.class, id);
-			if (brain != null) {
-				System.out.println("Found");
-				em.getTransaction().begin();
-				em.remove(brain);
-				em.getTransaction().commit();
-				System.out.println("Removed");
-			} else {
-				System.out.println("Not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction() != null)
-				em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		Brain brain = em.find(Brain.class,id);
+		em.remove(brain);
 	}
-
+	
+	
 	@Override
 	public List<Idea> getAllIdeas() {
 		// TODO Auto-generated method stub

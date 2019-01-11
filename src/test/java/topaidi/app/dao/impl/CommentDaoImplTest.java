@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import topaidi.app.model.ideas.Comment;
-import topaidi.app.utils.Application;
 
 public class CommentDaoImplTest {
 	CommentDaoImpl categoryDao;
@@ -84,9 +83,5 @@ public class CommentDaoImplTest {
 		assertTrue(categoryDao.findAll().size() == 1);		
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
 
 }

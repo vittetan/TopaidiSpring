@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import topaidi.app.model.reports.*;
-import topaidi.app.utils.Application;
 
 public class ReportCommentDaoImplTest {
 	ReportCommentDaoImpl reportCommentDao;
@@ -84,9 +83,5 @@ public class ReportCommentDaoImplTest {
 		assertTrue(reportCommentDao.findAll().size() == 1);		
 	}
 
-	@After
-	public void stop() {
-		Application.stop();
-	}
 
 }
