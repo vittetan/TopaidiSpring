@@ -49,10 +49,10 @@ public class HomeController {
 	
 	@PostMapping("/newBrain") 
 	public String newBrain(@ModelAttribute("newBrain") Brain newBrain,  BindingResult result, Model model) {
-		/*new BrainValidator().validate(newBrain, result);
+		new BrainValidator().validate(newBrain, result);
 		if (result.hasErrors()) {
 			return "/home/newBrain";
-		}*/
+		}
 		bDao.insert(newBrain);
 		return "redirect:/home?action=confirm";
 	}
