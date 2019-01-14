@@ -27,11 +27,10 @@ public class LoginController {
 	AdminDao aDAo;
 
 	@GetMapping
-	public String login(HttpSession session, Model m) {
-//		if ((boolean)session.getAttribute("connected")) {
-////			return "home";
-//		}
-
+	public String login(@ModelAttribute("action") String action,  Model m) {
+		if (action.equals("failed")) {
+			m.addAttribute("action", action);
+		}
 		m.addAttribute("pers", new Brain());
 		return "/login/login";
 	}
@@ -60,7 +59,7 @@ public class LoginController {
 				}
 			}
 		}
-		return "/login/login";
+		return "redirect:/login?action=failed";
 	}
 
 }
