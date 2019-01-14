@@ -8,7 +8,7 @@
 <jsp:include page="../include/header.jsp" />
 <c:if test = "${action == 'confirm'}">
 	<div class="alert alert-success" role="alert">
-		This is a success alert—check it out!
+		We have received your request. If all you data are OK you'll become a Brain in very short time. Congratulations! 
 	</div>
 </c:if>
 

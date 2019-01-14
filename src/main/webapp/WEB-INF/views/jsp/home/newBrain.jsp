@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -13,17 +13,28 @@
 <spring:url value="" var="processUrl"/>
 <form:form method="POST" action="" modelAttribute="newBrain" >
 	
+	<div class="form-group">
+	<spring:hasBindErrors name="newBrain">
+		<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
+	</spring:hasBindErrors>
 	<form:label path="login">Login (valid email)</form:label>
-	<form:input path="login"/>
-				
+	<form:input path="login" type="email" class="form-control"/>
+	<form:errors path="login" type="text" style="${errorClass}"/>
+	</div>
+	
+	<div class="form-group">			
 	<form:label path="password">Password</form:label>
-	<form:input path="password" />
+	<form:input path="password" type="password" class="form-control"/>
+	<form:errors path="password" type="text" style="${errorClass}"/>
+	</div>
 	
-	
+	<div class="form-group">
 	<form:label path="pseudo">Pseudo</form:label>
-	<form:input path="pseudo" />
+	<form:input path="pseudo" class="form-control"/>
+	<form:errors path="pseudo" type="text" style="${errorClass}"/>
+	</div>
 		
-	<input type="submit" value="New Brain">
+	<button class="btn btn-success" type="submit">New Brain</button>
 </form:form>
 
 <div id="showWelcome" style ="visibility :hidden" >
