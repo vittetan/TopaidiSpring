@@ -15,7 +15,7 @@ public class BrainValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "login.empty", "Please insert your email. Thanks!");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "login.empty", "Please insert your email. Thanks!");
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty", "Please insert your password. Thanks!");
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pseudo", "pseudo.empty", "Please choose a pseudo. Thanks!");
 		//Brain brain = (Brain) target;

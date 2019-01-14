@@ -11,7 +11,7 @@
 <h1>We are ready to welcome a new genius!</h1><br/>
 
 <spring:url value="" var="processUrl"/>
-<form:form id="newBrain" method="post" action="" modelAttribute="newBrain" onsubmit="showWelcome();return false;">
+<form:form method="post" action="" modelAttribute="newBrain" onsubmit="showWelcome();return false;">
 	
 	<form:label path="login">Login (valid email)</form:label>
 	<form:input path="login"/>
