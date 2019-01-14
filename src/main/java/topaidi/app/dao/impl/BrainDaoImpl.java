@@ -2,8 +2,11 @@ package topaidi.app.dao.impl;
 
 import java.util.List;
 
+import javax.management.remote.NotificationResult;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -85,6 +88,18 @@ public class BrainDaoImpl implements BrainDao {
 		TypedQuery<ReportComment> query = em.createQuery(
 	            "SELECT rc FROM Idea rc WHERE rc.brain.id = :id", ReportComment.class);
 	    return query.setParameter("id", id).getResultList();
+	}
+
+	@Override
+	public Brain getBrainByLogin(String email) {
+		TypedQuery<Brain> query = em.createQuery(
+				" SELECT b FROM Brain b WHERE b.login= :email", Brain.class);
+		try {
+			Brain result =  query.setParameter("email", email).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	

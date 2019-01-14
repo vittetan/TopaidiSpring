@@ -3,13 +3,16 @@ package topaidi.app.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import topaidi.app.dao.AdminDao;
 import topaidi.app.model.persons.Admin;
+import topaidi.app.model.persons.Brain;
 
 @Repository
 @Transactional
@@ -43,6 +46,18 @@ public class AdminDaoImpl implements AdminDao {
 	public void deleteByKey(Integer id) {
 		Admin admin = em.find(Admin.class,id);
 		em.remove(admin);
+	}
+
+	@Override
+	public Admin getAdminByLogin(String login) {
+		TypedQuery<Admin> query = em.createQuery(
+				" SELECT a FROM Admin a WHERE a.login= :login", Admin.class);
+		try {
+			Admin result =  query.setParameter("login", login).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 

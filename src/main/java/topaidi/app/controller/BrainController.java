@@ -25,6 +25,7 @@ public class BrainController {
 	
 	@RequestMapping("/welcome")
 	public String home(Model model) {
+		
 			return "brain/welcome";
  	}
 	
