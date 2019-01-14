@@ -9,9 +9,9 @@
 <div>
 
 <h1>We are ready to welcome a new genius!</h1><br/>
-
+<!-- onsubmit="showWelcome(e);return false;" -->
 <spring:url value="" var="processUrl"/>
-<form:form method="post" action="" modelAttribute="newBrain" onsubmit="showWelcome();return false;">
+<form:form method="POST" action="" modelAttribute="newBrain" >
 	
 	<form:label path="login">Login (valid email)</form:label>
 	<form:input path="login"/>
@@ -34,7 +34,8 @@
 	
 <script>
 
-	function showWelcome(){
+	function showWelcome(e){
+		e.preventDefault();
 		document.getElementById("showWelcome").style.visibility = "visible";
 		document.getElementById("backHome").style.visibility = "visible";
 		return false;
