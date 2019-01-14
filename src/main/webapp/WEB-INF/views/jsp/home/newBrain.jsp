@@ -8,29 +8,43 @@
 
 <div>
 
-<h1>We are ready to welcome a new great artist!</h1><br/>
+<h1>We are ready to welcome a new genius!</h1><br/>
 
-<spring:url value="/artists/processForm" var="processUrl"/>
+<spring:url value="" var="processUrl"/>
+<form:form id="newBrain" method="post" action="" modelAttribute="newBrain" onsubmit="showWelcome();return false;">
+	
+	<form:label path="login">Login (valid email)</form:label>
+	<form:input path="login"/>
+				
+	<form:label path="password">Password</form:label>
+	<form:input path="password" />
+	
+	
+	<form:label path="pseudo">Pseudo</form:label>
+	<form:input path="pseudo" />
+		
+	<input type="submit" value="New Brain">
+</form:form>
 
-	<form:form method="post" action="${processUrl}" modelAttribute="art">
-		<form:input path="id" type="hidden"/>
-		
-		<spring:hasBindErrors name="art">
-			<c:set var="errorClass" value="border:1px solid red;"></c:set> 
-		</spring:hasBindErrors>
-		<form:label path="firstName">First name</form:label>
-		<form:input path="firstName" />
-		<form:errors path="firstName" type="text" style="${errorClass}"/>
-		
-		<form:label path="lastName">Last name</form:label>
-		<form:input path="lastName" />
-		
-		<form:label path="stageName">Stage name</form:label>
-		<form:input path="stageName" />
-		
-		<input type="submit" value="New artist">
-	</form:form>
+<div id="showWelcome" style ="visibility :hidden" >
+	We have received your request. If all you data are OK you'll become a Brain in very short time. Congratulations! 
+</div>
 
+<button id="backHome" onclick="backhome()" style ="visibility :hidden">Back to Topaidi</button>
+	
+<script>
+
+	function showWelcome(){
+		document.getElementById("showWelcome").style.visibility = "visible";
+		document.getElementById("backHome").style.visibility = "visible";
+		return false;
+	}
+	
+	function backhome(){
+		location.replace("http://localhost:8080/topaidi/home");
+	}
+</script>
+	
 </div>
 </body>
 </html>
