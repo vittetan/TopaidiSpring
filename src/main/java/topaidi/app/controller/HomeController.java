@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,7 +33,10 @@ public class HomeController {
 	IdeaDao iDao;
 	
 	@RequestMapping("/home")
-	public String home(Model model) {
+	public String home(@ModelAttribute("action") String action, Model model) {
+		if (action.equals("confirm")) {
+			model.addAttribute("action", action);
+		}
 		model.addAttribute("ideas", iDao.findAll());
 		return "home/home";
  	}
@@ -43,14 +47,14 @@ public class HomeController {
 		return "/home/newBrain";  	
 	}
 	
-	@PostMapping ("/newBrain") 
+	@PostMapping("/newBrain") 
 	public String newBrain(@ModelAttribute("newBrain") Brain newBrain,  BindingResult result, Model model) {
 		/*new BrainValidator().validate(newBrain, result);
 		if (result.hasErrors()) {
 			return "/home/newBrain";
 		}*/
 		bDao.insert(newBrain);
-		return "redirect:/newBrain";
+		return "redirect:/home?action=confirm";
 	}
 	
 	/*@GetMapping("")
