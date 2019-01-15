@@ -6,6 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../include/header.jsp" />
+
+
+
 <c:if test="${action == 'confirm'}">
 	<div class="alert alert-success" role="alert">We have received
 		your request. If all you data are OK you'll become a Brain in very
@@ -19,42 +22,32 @@
 	<a href="newBrain" class="btn btn-success btn-xs">Become a new brain</a>
 
 	<h3>Hello dear. Wanna check the coolest ideas on Topaidi?</h3>
+	
+	  <br/>
+	  <hr>
 
-		<h1>Idea list</h1>
-
-		<table class="table">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Title</th>
-					<th scope="col">Description</th>
-					<th scope="col">Category</th>
-					<th scope="col">Image</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${ideas}" var="idea">
-					<tr class="clickable-row" data-href="url:www.google.com">
-						<th scope="row">${idea.id}</th>
-						<td>${idea.title}</th>
-						<td>${idea.description}</td>
-						<td>${idea.category.name}</td>
-						<td><c:if test="${idea.image == null}">
-								<img src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
-									alt="${idea.title}" height="100" width="auto">
-							</c:if> <c:if test="${idea.image != null}">
-								<img src="${idea.image}" alt="${idea.title}" height="100"
-									width="auto">
-							</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-
-
-			</tbody>
-		</table>
-
-	</div>
+      <!-- Project One -->
+      <c:forEach items="${ideas}" var="idea">
+      <spring:url value="/idea/${idea.id}" var="ideaUrl"/>
+      <div class="row">
+        <div class="col-md-7">        
+          	<c:if test="${idea.image == null}">
+				<img  class="rounded mx-auto d-block" src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg" alt="${idea.title}" height="auto" width="200px">
+			</c:if>
+			<c:if test="${idea.image != null}">
+				<img  class="rounded mx-auto d-block" src="${idea.image}" alt="${idea.title}" height="auto" width="250px">
+			</c:if>
+        </div>
+        <div class="col-md-5">
+          <h2>${idea.title}</h2>
+          <h4><b>Category: </b>${idea.category.name}</h4>
+          <p>${idea.description}</p>
+          <a class="btn btn-primary" href="${ideaUrl}">View Idea</a>
+        </div>
+      </div>
+      <hr>
+      </c:forEach>
+      <!-- /.row -->
 
 </div>
 </body>

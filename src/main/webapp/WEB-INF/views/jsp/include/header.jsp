@@ -21,9 +21,11 @@
 <header>
 	<h1 class="titre-topaidi">TOPAIDI</h1>
 </header>
+
+      <spring:url value="/home" var="home"/>
 		
 <nav>
-	<a href="http://localhost:8080/topaidi/home" title="accueil">Home</a>
+	<a href="${home}" title="accueil">Home</a>
 	<a href="http://localhost:8080/topaidi/home" title="accueil">xxxxxxxx</a>
 	<a href="http://localhost:8080/topaidi/home" title="cours">xxxxxxxx</a>
 	<a href="http://localhost:8080/topaidi/home">xxxxxxxx</a>
