@@ -46,7 +46,7 @@ public class LoginController {
 					session.setAttribute("isConnected", true);
 					session.setAttribute("isAdmin", true);
 					session.setAttribute("person", a);
-					return "/admin/welcome";
+					return "redirect:/admin/"+ a.getId() +"/welcome";
 				}
 			}
 			
@@ -55,7 +55,7 @@ public class LoginController {
 					session.setAttribute("isConnected", true);
 					session.setAttribute("isAdmin", false);
 					session.setAttribute("person", b);
-					return "/brain/welcome";
+					return "redirect:/brain/"+ b.getId() +"/welcome";
 				}
 			}
 		}

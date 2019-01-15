@@ -1,5 +1,9 @@
 package topaidi.app.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
+import topaidi.app.model.categories.Category;
+import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Brain;
-import topaidi.app.validator.BrainValidator;
 import topaidi.app.validator.IdeaValidator;
 
 @Controller
@@ -31,26 +36,43 @@ public class BrainController {
 	
 	
 	@RequestMapping("/{id}/welcome")
-	public String home(Model model) {
-		
+	public String home(HttpSession session, Model model) {
+			
+			Object pers = session.getAttribute("person");
+			if (pers != null) {
+				Brain b = (Brain)pers;
+				model.addAttribute("brainId", b.getId());
+			}
 			return "brain/welcome";
  	}
 	
+		
 	@GetMapping("/{id}/newIdea")
-	public String newIdea(@PathVariable("id") int id, Model model) {
-		Brain brain = bDao.findByKey(id);
+	public String newIdea(@PathVariable("id") int id, HttpSession session, Model model) {
+		
+		Object isConnected = session.getAttribute("isConnected");
+		if (isConnected == null) {
+			return "redirect:/login";
+		} else {
+			boolean c = (boolean)isConnected;
+			if(!c) {
+				return "redirect:/login";
+			}
+		}
+		
+		//Brain brain = bDao.findByKey(id);
 		Idea idea = new Idea();
-		idea.setBrain(brain);
+		idea.setBrain((Brain)session.getAttribute("person"));
 		model.addAttribute("idea", idea);
 		model.addAttribute("categories", cDao.findAll());
 		return "/idea/newIdea";  	
 	}
 
 	@PostMapping ("/{id}/newIdea") 
-	public String newIdea(@PathVariable(value="id") int id, @ModelAttribute("idea") Idea idea,  BindingResult result, Model model) {
+	public String newIdea(@ModelAttribute("idea") Idea idea, @ModelAttribute("categories") List<Category> categories, BindingResult result, HttpSession session) {
 		new IdeaValidator().validate(idea, result);
 		if (result.hasErrors()) {
-			model.addAttribute("categories", cDao.findAll());
+			categories = cDao.findAll();
 			return "/idea/newIdea";
 		}
 		idea.setId(0);
@@ -59,4 +81,5 @@ public class BrainController {
 		return "redirect:/idea/" + n;
 	}
 	
+		
 }
