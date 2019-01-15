@@ -9,15 +9,13 @@
 
 <div>
 
-    <!-- Page Content -->
-    <div class="container">
-
       <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-8">
 
           <!-- Title -->
+          <br/>
           <h1 class="mt-4">${i.title}</h1>
 
           <!-- Author -->
@@ -32,12 +30,12 @@
           <br/><br/>
 
           <!-- Post Content -->       
-          <p>${i.description}</p>
+          <p class="idea-description">${i.description}</p>
           <br/>
 
           <!-- Comments Form -->
           <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
+            <h4 class="card-header">Leave a Comment:</h4>
             <div class="card-body">
               <form>
                 <div class="form-group">
@@ -49,81 +47,93 @@
           </div>
 
           <!-- Single Comment -->
+          <c:forEach items="${comments}" var="comment">
           <div class="media mb-4">
-          <c:forEach items="${ideas}" var="idea">
             <img class="d-flex mr-3 rounded-circle" src="https://kotmo.ca/wp-content/uploads/2018/03/commentaire-sur-le-blog-symbole-de-bulle_318-64486.jpg" height="35px" width="auto" alt="">
             <div class="media-body">
-              <h5 class="mt-0">sssssss</h5>
-              <p>${i.comment.description}</p>
+              <h4 class="mt-0">${comment.brain.pseudo}</h4>
+              <p>${comment.description}</p>
             </div>
-          </c:forEach>
           </div>
+          </c:forEach>
          
         </div>
 
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
-        <br/> 
+        <br/><br/><br/> 
        
           <!-- Date Widget -->
           <div class="card">
-  			<h5 class="card-header">Publication date</h5>
+  			<h4 class="card-header">Publication date</h4>
           	<blockquote class="blockquote text-center">
             	<h6 class="card-text"></h6>
-  				<p class="mb-0">${i.dateCreation}</p>
+  				<h4 class="mb-0">${i.dateCreation}</h4>
 		  	</blockquote>
 		  </div>    
 		  <br/> 
           
           <!-- Categories Widget -->
           <div class="card">
-  			<h5 class="card-header">Category</h5>
+  			<h4 class="card-header">Category</h4>
           	<blockquote class="blockquote text-center">
             	<h6 class="card-text"></h6>
-  				<p class="mb-0">${i.category.name}</p>
+  				<h4 class="mb-0">${i.category.name}</h4>
 		  	</blockquote>
 		  </div>    
-		  <br/>      
+		  <br/><br/><br/>        
           
           <!-- Ranking Tops Widget -->
           <div class="card">
-  			<h5 class="card-header">Ranking Tops</h5>
+  			<h4 class="card-header">Ranking Tops</h4>
           	<blockquote class="blockquote text-center">
           		<br/>
             	<h6 class="card-text">According to the percentage of Tops</h6>
-  				<p class="mb-0">??????</p>
-		  	</blockquote>
-		  </div>
-		  <br/>
-          
-          <!-- Ranking Brains Widget -->
-          <div class="card">
-  			<h5 class="card-header">Ranking Brains</h5>
-          	<blockquote class="blockquote text-center">
-          		<br/>
-            	<h6 class="card-text">According to the number of ideas posted by user</h6>
-  				<p class="mb-0">??????</p>
+  				<h4 class="mb-0">??????</h4>
 		  	</blockquote>
 		  </div>
 		  <br/>
           
           <!-- Ranking Buzz Widget -->
           <div class="card">
-  			<h5 class="card-header">Ranking Buzz</h5>
+  			<h4 class="card-header">Ranking Buzz</h4>
           	<blockquote class="blockquote text-center">
           		<br/>
             	<h6 class="card-text">According to the number of total votes (Tops + Flops)</h6>
-  				<p class="mb-0">??????</p>
+  				<h4 class="mb-0">??????</h4>
 		  	</blockquote>
+		  </div>
+		  <br/><br/><br/> 
+		  
+		  <!-- Categories Widget -->
+          <div class="card my-4">
+            <h4 class="card-header">Vote</h4>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+						<input id="Masculin" type="radio" name="vote" value="TOP"/>
+						<label for="Masculin">TOP</label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+						<input id="Masculin" type="radio" name="vote" value="FLOP"/>
+						<label for="Masculin">FLOP</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 		  </div>
 		                    
         </div>
 
       </div>
       <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
 	
 </div>
 </body>
