@@ -30,7 +30,7 @@ public class IdeaController {
 	CommentDao cdao;
 	
 	@GetMapping("/{id}")
-	public String idea(@PathVariable(value="id", required=false) int id, Model model) {
+	public String idea(@PathVariable(value="id") int id, Model model) {
 		Idea idea = idao.findByKey(id);
 		model.addAttribute("i", idea);
 		model.addAttribute("comments", idao.getAllComments(idea.getId()));

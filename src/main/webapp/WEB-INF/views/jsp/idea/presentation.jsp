@@ -41,7 +41,7 @@
                 <div class="form-group">
                   <textarea class="form-control" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
               </form>
             </div>
           </div>
@@ -108,26 +108,29 @@
 		  <!-- Categories Widget -->
           <div class="card my-4">
             <h4 class="card-header">Vote</h4>
-            <div class="card-body">
+            <blockquote class="blockquote text-center">
+            <br/> 
               <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
                     <li>
-						<input id="Masculin" type="radio" name="vote" value="TOP"/>
-						<label for="Masculin">TOP</label>
+						<input id="Top" type="radio" name="vote" value="TOP"/>
+						<label for="Top">TOP</label>
                     </li>
                   </ul>
                 </div>
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
                     <li>
-						<input id="Masculin" type="radio" name="vote" value="FLOP"/>
-						<label for="Masculin">FLOP</label>
+						<input id="Flop" type="radio" name="vote" value="FLOP"/>
+						<label for="Flop">FLOP</label>
                     </li>
                   </ul>
                 </div>
               </div>
-            </div>
+              <br/>       
+              <button type="submit" class="btn btn-primary">Submit Vote</button>
+            </blockquote>
 		  </div>
 		                    
         </div>
