@@ -19,7 +19,7 @@
 	</div>
 </c:if>
 
-	<form:form class="form-group" method="post" action="${processUrl}" modelAttribute="pers">
+	<form:form method="POST" action="${processUrl}" modelAttribute="pers">
 		<div class="form-group">
 			<form:label path="login">Login</form:label>
 			<form:input class="form-control" path="login" />
