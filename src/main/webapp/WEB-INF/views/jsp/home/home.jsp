@@ -34,7 +34,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${ideas}" var="idea">
-					<tr>
+					<tr class="clickable-row" data-href="url:www.google.com">
 						<th scope="row">${idea.id}</th>
 						<td>${idea.title}</th>
 						<td>${idea.description}</td>
