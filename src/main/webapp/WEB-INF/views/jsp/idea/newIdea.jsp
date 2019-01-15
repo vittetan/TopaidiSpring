@@ -6,6 +6,8 @@
 
 <jsp:include page="../include/header.jsp" />
 
+<div>
+
 	<spring:url value="" var="processUrl"/>
 	<form:form method="post" action="" modelAttribute="idea">
 		
@@ -13,6 +15,8 @@
 				<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
 			</spring:hasBindErrors>
 			<form:input path="brain.id" type="hidden"/>
+		
+		<br />
 				
 		<div class="form-group">			
 			<form:label path="title">Title</form:label>
@@ -40,6 +44,6 @@
 		
 	</form:form>
 
-
+</div>
 </body>
 </html>
