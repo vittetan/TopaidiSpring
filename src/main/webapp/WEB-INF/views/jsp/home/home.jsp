@@ -15,8 +15,8 @@
 <div>
 
 	<h1>Welcome to Topaidi. We are the best!</h1>
-	<br /> 
-	<a href="newBrain" class="btn btn-success btn-xs">Become a new brain</a>
+	<br /> <a href="newBrain" class="btn btn-success btn-xs">Become a
+		new brain</a>
 
 	<h3>Hello dear. Wanna check the coolest ideas on Topaidi?</h3>
 
@@ -35,18 +35,20 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${ideas}" var="idea">
-					<th scope="row">${idea.id}</th>
-					<th scope="row">${idea.title}</th>
-					<td>${idea.description}</td>
-					<td>${idea.category.name}</td>
-					<td><c:if test="${idea.image == null}">
-							<img
-								src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
-								alt="${idea.title}" height="100" width="auto">
-						</c:if> <c:if test="${idea.image != null}">
-							<img src="${idea.image}" alt="${idea.title}" height="100"
-								width="auto">
-						</c:if></td>
+					<tr>
+						<th scope="row">${idea.id}</th>
+						<td>${idea.title}</th>
+						<td>${idea.description}</td>
+						<td>${idea.category.name}</td>
+						<td><c:if test="${idea.image == null}">
+								<img src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
+									alt="${idea.title}" height="100" width="auto">
+							</c:if> <c:if test="${idea.image != null}">
+								<img src="${idea.image}" alt="${idea.title}" height="100"
+									width="auto">
+							</c:if>
+						</td>
+					</tr>
 				</c:forEach>
 
 
