@@ -9,12 +9,11 @@
 	<spring:url value="" var="processUrl"/>
 	<form:form method="post" action="" modelAttribute="idea">
 		
-		<div class="form-group">
 			<spring:hasBindErrors name="newIdea">
 				<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
 				</spring:hasBindErrors>
-		<form:input path="brain.id" type="hidden"/>
-		
+			<form:input path="brain.id" type="hidden"/>
+				
 		<div class="form-group">			
 			<form:label path="title">Title</form:label>
 			<form:input path="title" class="form-control"/>
@@ -33,6 +32,7 @@
 		</div>
 				
 		<button class="btn btn-success" type="submit">New Idea</button>
+		
 	</form:form>
 
 
