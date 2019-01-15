@@ -9,9 +9,9 @@
 	<spring:url value="" var="processUrl"/>
 	<form:form method="post" action="" modelAttribute="idea">
 		
-			<spring:hasBindErrors name="newIdea">
+			<spring:hasBindErrors name="idea">
 				<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
-				</spring:hasBindErrors>
+			</spring:hasBindErrors>
 			<form:input path="brain.id" type="hidden"/>
 				
 		<div class="form-group">			
@@ -29,6 +29,11 @@
 		<div class="form-group">
 			<label for=category>Category</label>
 			<form:select path="category.id" items="${categories}" itemlabel="category.name" itemValue="id" class="form-control"/>
+		</div>
+		
+		<div class="form-group">		
+			<form:label path="image">Please insert the link with an image if you want</form:label>
+			<form:input path="image" class="form-control" />
 		</div>
 				
 		<button class="btn btn-success" type="submit">New Idea</button>

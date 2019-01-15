@@ -48,10 +48,11 @@ public class BrainController {
 
 	@PostMapping ("/{id}/newIdea") 
 	public String newIdea(@PathVariable(value="id") int id, @ModelAttribute("idea") Idea idea,  BindingResult result, Model model) {
-//		new IdeaValidator().validate(idea, result);
-//		if (result.hasErrors()) {
-//			return "redirect:/brain/"+id+"/newIdea";
-//		}
+		new IdeaValidator().validate(idea, result);
+		if (result.hasErrors()) {
+			model.addAttribute("categories", cDao.findAll());
+			return "/idea/newIdea";
+		}
 		idea.setId(0);
 		iDao.insert(idea);
 		int n = idea.getId();
