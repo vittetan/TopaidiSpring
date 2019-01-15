@@ -32,23 +32,29 @@
 					<th scope="col">Image</th>
 				</tr>
 			</thead>
-			<c:forEach items="${ideas}" var="idea">
-			<tbody>			
-					<th scope="row">${idea.id}</th>
-					<th scope="row">${idea.title}</th>
-					<td>${idea.description}</td>
-					<td>${idea.category.name}</td>
-					<td><c:if test="${idea.image == null}">
-							<img
-								src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
-								alt="${idea.title}" height="100" width="auto">
-						</c:if> <c:if test="${idea.image != null}">
-							<img src="${idea.image}" alt="${idea.title}" height="100"
-								width="auto">
-						</c:if></td>				
+			<tbody>
+				<c:forEach items="${ideas}" var="idea">
+					<tr>
+						<th scope="row">${idea.id}</th>
+						<td>${idea.title}</th>
+						<td>${idea.description}</td>
+						<td>${idea.category.name}</td>
+						<td><c:if test="${idea.image == null}">
+								<img src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
+									alt="${idea.title}" height="100" width="auto">
+							</c:if> <c:if test="${idea.image != null}">
+								<img src="${idea.image}" alt="${idea.title}" height="100"
+									width="auto">
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+
+
 			</tbody>
-			</c:forEach>
 		</table>
+
+	</div>
 
 </div>
 </body>

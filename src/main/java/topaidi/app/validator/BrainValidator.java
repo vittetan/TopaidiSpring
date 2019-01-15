@@ -22,7 +22,7 @@ public class BrainValidator implements Validator{
 		if(brain.getPseudo().equalsIgnoreCase("pseudo")) {
 		errors.rejectValue("pseudo", "pseudo.pseudo.notpseudoPlease", "Please, try to choose an original pseudo. Thanks!");
 		}
-		if(brain.getPassword().length()<= 5) {
+		if(brain.getPassword().length()<= 4) {
 			errors.rejectValue("password", "password.password.notpasswordPlease", "Please, choose a password with at least 5 caracters. Thanks!");
 		}
 	}
