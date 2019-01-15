@@ -19,13 +19,13 @@ public class IdeaValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "title.empty", "Please choose a title for you idea. Thanks!");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "description.empty", "Please, give us some details about your idea. Thanks!");
 		Idea idea = (Idea) target;
-		if(idea.getTitle().length()<= 20) {
+		if(idea.getTitle().length()<= 5) {
 			errors.rejectValue("title", "title.title.notpasswordPlease", "Please, choose a more descriptive title. Thanks!");
 		}
-		if(idea.getTitle().length()<= 100) {
+		if(idea.getDescription().length()<= 100) {
 			errors.rejectValue("description", "description.description.notpasswordPlease", "Please, choose a more detailed description. Thanks!");
 		}
-		if(idea.getTitle().length()>= 256) {
+		if(idea.getDescription().length()>= 256) {
 			errors.rejectValue("description", "description.description.notpasswordPlease", "Sorry, it's taking a bit long to share this idea. Thanks!");
 		}
 	}
