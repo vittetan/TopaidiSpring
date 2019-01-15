@@ -15,6 +15,7 @@ import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Brain;
+import topaidi.app.validator.IdeaValidator;
 
 @Controller
 @RequestMapping("/brain")
@@ -46,9 +47,10 @@ public class BrainController {
 
 	@PostMapping ("/{id}/newIdea") 
 	public String newIdea(@PathVariable(value="id") int id, @ModelAttribute("idea") Idea idea,  BindingResult result, Model model) {
-		
+		idea.setId(0);
 		iDao.insert(idea);
-		return "redirect:/idea/presentation";
+		int n = idea.getId();
+		return "redirect:/idea/" + n;
 	}
 	
 }
