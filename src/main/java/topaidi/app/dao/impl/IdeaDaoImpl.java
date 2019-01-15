@@ -23,7 +23,7 @@ public class IdeaDaoImpl implements IdeaDao {
 	EntityManager em;
 	
 	public List<Idea> findAll() {
-		return em.createQuery("from Idea idea").getResultList();
+		return em.createQuery("from Idea idea order by id desc").getResultList();
 	}
 
 	public Idea findByKey(Integer id) {
