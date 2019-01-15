@@ -33,6 +33,7 @@ public class IdeaController {
 	public String idea(@PathVariable(value="id", required=false) int id, Model model) {
 		Idea idea = idao.findByKey(id);
 		model.addAttribute("i", idea);
+		model.addAttribute("comments", idao.getAllComments(idea.getId()));
 		return "idea/presentation";
  	}
 	
