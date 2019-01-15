@@ -91,11 +91,11 @@ public class BrainDaoImpl implements BrainDao {
 	}
 
 	@Override
-	public Brain getBrainByLogin(String email) {
+	public Brain getBrainByLogin(String login) {
 		TypedQuery<Brain> query = em.createQuery(
-				" SELECT b FROM Brain b WHERE b.login= :email", Brain.class);
+				" SELECT b FROM Brain b WHERE b.login= :login", Brain.class);
 		try {
-			Brain result =  query.setParameter("email", email).getSingleResult();
+			Brain result =  query.setParameter("login", login).getSingleResult();
 			return result;
 		} catch (NoResultException e) {
 			return null;

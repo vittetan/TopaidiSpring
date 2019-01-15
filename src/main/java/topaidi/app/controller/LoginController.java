@@ -43,18 +43,18 @@ public class LoginController {
 		if (a != null || b != null) {
 			if (a != null) {
 				if (pers.getPassword().equals(a.getPassword())) {
-					session.setAttribute("connected", true);
-					session.setAttribute("isAdmin", false);
-					session.setAttribute("pseudo", a.getPseudo());
+					session.setAttribute("isConnected", true);
+					session.setAttribute("isAdmin", true);
+					session.setAttribute("person", a);
 					return "/admin/welcome";
 				}
 			}
 			
-			if (b != null) {
+			if (b != null && b.isActivated() && b.isValidated()) {
 				if (pers.getPassword().equals(b.getPassword())) {
-					session.setAttribute("connected", true);
-					session.setAttribute("isAdmin", true);
-					session.setAttribute("pseudo", b.getPseudo());
+					session.setAttribute("isConnected", true);
+					session.setAttribute("isAdmin", false);
+					session.setAttribute("person", b);
 					return "/brain/welcome";
 				}
 			}
