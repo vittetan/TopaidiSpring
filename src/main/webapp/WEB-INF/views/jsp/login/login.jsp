@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -13,21 +13,23 @@
 <p>${sessionScope.pers}</p>
 
 <spring:url value="/login/processForm" var="processUrl"/>
+<c:if test="${action == 'failed'}">
+	<div class="alert alert-danger" role="alert">
+  		Login/password doesn't exist !
+	</div>
+</c:if>
 
-	<form:form method="post" action="${processUrl}" modelAttribute="pers">
-		<form:input path="id" type="hidden"/>
+	<form:form class="form-group" method="post" action="${processUrl}" modelAttribute="pers">
+		<div class="form-group">
+			<form:label path="login">Login</form:label>
+			<form:input class="form-control" path="login" />
+		</div>
 		
-		<spring:hasBindErrors name="pers">
-			<c:set var="errorClass" value="border:1px solid red;"></c:set> 
-		</spring:hasBindErrors>
-		<form:label path="login">Login</form:label>
-		<form:input path="login" />
-		<form:errors path="login" type="text" style="${errorClass}"/>
-		
-		<form:label path="password">Last name</form:label>
-		<form:input path="password" />
-		
-		<input type="submit" value="Connect">
+		<div class="form-group">
+			<form:label path="password">Password</form:label>
+			<form:input type="password" class="form-control" path="password" />
+		</div>
+		<button class="btn btn-success" type="submit">Connect</button>
 	</form:form>
 
 </div>
