@@ -1,4 +1,4 @@
-package topaidi.app.model.categories;
+	package topaidi.app.model.categories;
 
 
 import java.util.Set;
@@ -19,10 +19,10 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column
+	@Column(name="name")
 	private String name;
 	
-	@Column
+	@Column(name="description")
 	private String description;
 	
 	

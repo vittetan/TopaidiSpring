@@ -9,7 +9,7 @@
 <div>
 
 <h1>We are ready to welcome a new genius!</h1><br/>
-<!-- onsubmit="showWelcome(e);return false;" -->
+
 <spring:url value="" var="processUrl"/>
 <form:form method="POST" action="" modelAttribute="newBrain" >
 	

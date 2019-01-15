@@ -6,20 +6,27 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<spring:url value="" var="processUrl"/>
-
-	<form:form method="post" action="${processUrl}" modelAttribute="idea">
-					
-		<form:label path="title">Title</form:label>
-		<form:input path="title" />
-				
-		<form:label path="description">Description</form:label>
-		<form:input path="description" />
+	<spring:url value="" var="processUrl"/>
+	<form:form method="post" action="" modelAttribute="idea">
 		
-		<label for=cateogry>Category</label>
-		<form:select path="category.id" items="${categories}" itemlabel="name" itemValue="id" class="form-control"/>
+		<form:input path="brain.id" type="hidden"/>
+		
+		<div class="form-group">			
+			<form:label path="title">Title</form:label>
+			<form:input path="title" class="form-control"/>
+		</div>
+		
+		<div class="form-group">		
+			<form:label path="description">Description</form:label>
+			<form:input path="description" class="form-control" />
+		</div>
 				
-		<input type="submit" value="New Idea">
+		<div class="form-group">
+			<label for=category>Category</label>
+			<form:select path="category.id" items="${categories}" itemlabel="name" itemValue="id" class="form-control"/>
+		</div>
+				
+		<button class="btn btn-success" type="submit">New Idea</button>
 	</form:form>
 
 

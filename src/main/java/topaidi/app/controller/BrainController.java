@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import topaidi.app.dao.BrainDao;
+import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
 import topaidi.app.model.ideas.Idea;
+import topaidi.app.model.persons.Brain;
 
 @Controller
 @RequestMapping("/brain")
@@ -22,6 +24,8 @@ public class BrainController {
 	BrainDao bDao;
 	@Autowired
 	IdeaDao iDao;
+	@Autowired
+	CategoryDao cDao;
 	
 	
 	@RequestMapping("/{id}/welcome")
@@ -31,13 +35,18 @@ public class BrainController {
  	}
 	
 	@GetMapping("/{id}/newIdea")
-	public String newIdea(@PathVariable(value="id") int id, Model model) {
-		model.addAttribute("idea", new Idea());
+	public String newIdea(@PathVariable("id") int id, Model model) {
+		Brain brain = bDao.findByKey(id);
+		Idea idea = new Idea();
+		idea.setBrain(brain);
+		model.addAttribute("idea", idea);
+		model.addAttribute("categories", cDao.findAll());
 		return "/idea/newIdea";  	
 	}
 
 	@PostMapping ("/{id}/newIdea") 
 	public String newIdea(@PathVariable(value="id") int id, @ModelAttribute("idea") Idea idea,  BindingResult result, Model model) {
+		
 		iDao.insert(idea);
 		return "redirect:/idea/presentation";
 	}
