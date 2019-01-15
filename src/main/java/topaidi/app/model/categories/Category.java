@@ -80,6 +80,9 @@ public class Category {
 		this.ideas = ideas;
 	}
 		
-
+	@Override
+    public String toString() {
+        return getName(); 
+	}
 
 }

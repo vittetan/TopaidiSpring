@@ -37,25 +37,6 @@
 	<button class="btn btn-success" type="submit">New Brain</button>
 </form:form>
 
-<div id="showWelcome" style ="visibility :hidden" >
-	We have received your request. If all you data are OK you'll become a Brain in very short time. Congratulations! 
-</div>
-
-<button id="backHome" onclick="backhome()" style ="visibility :hidden">Back to Topaidi</button>
-	
-<script>
-
-	function showWelcome(e){
-		e.preventDefault();
-		document.getElementById("showWelcome").style.visibility = "visible";
-		document.getElementById("backHome").style.visibility = "visible";
-		return false;
-	}
-	
-	function backhome(){
-		location.replace("http://localhost:8080/topaidi/home");
-	}
-</script>
 	
 </div>
 </body>

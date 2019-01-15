@@ -62,6 +62,13 @@ public class Idea {
 	private Set<ReportIdea> reportIdeas;
 
 	public Idea() {
+		setDateCreation();
+		setDateEnd();
+		setActivated(true);
+		
+		this.comments = new HashSet<Comment>();
+		this.votes = new HashSet<Vote>();
+		this.reportIdeas = new HashSet<ReportIdea>();
 	}
 	
 	public Idea(Brain brain, String title, String description, Category category) {
