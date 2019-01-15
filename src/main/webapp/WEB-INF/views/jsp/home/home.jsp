@@ -15,12 +15,11 @@
 <div>
 
 	<h1>Welcome to Topaidi. We are the best!</h1>
-	<br /> <a href="newBrain" class="btn btn-success btn-xs">Become a
-		new brain</a>
+	<br /> 
+	<a href="newBrain" class="btn btn-success btn-xs">Become a new brain</a>
 
 	<h3>Hello dear. Wanna check the coolest ideas on Topaidi?</h3>
 
-	<div class="container">
 		<h1>Idea list</h1>
 
 		<table class="table">

@@ -23,7 +23,7 @@
 				
 		<div class="form-group">
 			<label for=category>Category</label>
-			<form:select path="category.id" items="${categories}" itemlabel="name" itemValue="id" class="form-control"/>
+			<form:select path="category.name" items="${categories}" itemlabel="category.name" itemValue="id" class="form-control"/>
 		</div>
 				
 		<button class="btn btn-success" type="submit">New Idea</button>
