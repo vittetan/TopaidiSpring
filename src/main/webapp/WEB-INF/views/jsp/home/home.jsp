@@ -20,7 +20,6 @@
 
 	<h3>Hello dear. Wanna check the coolest ideas on Topaidi?</h3>
 
-	<div class="container">
 		<h1>Idea list</h1>
 
 		<table class="table">
@@ -33,8 +32,8 @@
 					<th scope="col">Image</th>
 				</tr>
 			</thead>
-			<tbody>
-				<c:forEach items="${ideas}" var="idea">
+			<c:forEach items="${ideas}" var="idea">
+			<tbody>			
 					<th scope="row">${idea.id}</th>
 					<th scope="row">${idea.title}</th>
 					<td>${idea.description}</td>
@@ -46,14 +45,10 @@
 						</c:if> <c:if test="${idea.image != null}">
 							<img src="${idea.image}" alt="${idea.title}" height="100"
 								width="auto">
-						</c:if></td>
-				</c:forEach>
-
-
+						</c:if></td>				
 			</tbody>
+			</c:forEach>
 		</table>
-
-	</div>
 
 </div>
 </body>
