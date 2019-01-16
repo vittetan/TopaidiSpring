@@ -18,10 +18,14 @@
 
 <body>
 <div>
-<spring:url value="/login" var="loginRedirect"/>
-<a href="${loginRedirect}" class="btn btn-primary btn-xs">Login</a>
-<spring:url value="/newBrain" var="subscribeRedirect"/>
-<a href="${subscribeRedirect}" class="btn btn-primary btn-xs">Subscribe</a>
+
+<div class="login-subscribe">
+	<spring:url value="/login" var="loginRedirect"/>
+	<a href="${loginRedirect}" class="btn btn-primary btn-xs">Login</a>
+	<spring:url value="/newBrain" var="subscribeRedirect"/>
+	<a href="${subscribeRedirect}" class="btn btn-primary btn-xs">Subscribe</a>
+</div>
+
 <header>
 	<h1 class="titre-topaidi">TOPAIDI</h1>
 </header>
