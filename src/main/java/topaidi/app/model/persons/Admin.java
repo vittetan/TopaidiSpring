@@ -12,7 +12,7 @@ public class Admin extends Person {
 	public Admin() {
 		super();
 	}
-	
+
 	public Admin(String login, String password, String pseudo) {
 		super(login, password, pseudo);
 	}
@@ -44,4 +44,5 @@ public class Admin extends Person {
 	public void deleteCategory(Category category) {
 
 	}
+
 }

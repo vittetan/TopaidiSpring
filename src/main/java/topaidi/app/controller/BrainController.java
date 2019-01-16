@@ -1,7 +1,5 @@
 package topaidi.app.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
-import topaidi.app.model.categories.Category;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.validator.IdeaValidator;
@@ -34,7 +31,7 @@ public class BrainController {
 	CategoryDao cDao;
 	
 	
-	@RequestMapping("/{id}/welcome")
+	@GetMapping("/{id}/welcome")
 	public String home(HttpSession session, Model model) {
 			
 			Object pers = session.getAttribute("person");
@@ -42,7 +39,7 @@ public class BrainController {
 				Brain b = (Brain)pers;
 				model.addAttribute("brainId", b.getId());
 			}
-			return "brain/welcome";
+			return "/brain/welcome";
  	}
 	
 		
@@ -75,6 +72,10 @@ public class BrainController {
 			return "/idea/newIdea";
 		}
 		idea.setId(0);
+		
+		if (idea.getImage().isEmpty()) {
+			idea.setImage(null);
+		}
 		iDao.insert(idea);
 		int n = idea.getId();
 		return "redirect:/idea/" + n;
