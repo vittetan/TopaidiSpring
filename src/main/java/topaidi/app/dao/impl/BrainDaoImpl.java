@@ -1,12 +1,11 @@
 package topaidi.app.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.remote.NotificationResult;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -101,6 +100,46 @@ public class BrainDaoImpl implements BrainDao {
 			return null;
 		}
 	}
+	
+	@Override
+	public int getNombreIdeas(Integer id) {
+		int n = getAllIdeas(id).size();
+		return n;
+	}
 
+	@Override
+	public ArrayList<Brain> getRankingBrain() {
+		ArrayList<Brain> allBrains = (ArrayList<Brain>) findAll();
+		ArrayList<Brain> rankingBrain = new ArrayList<Brain>();
+		for (int i = 0; i < (allBrains.size() - 1); i++) {
+			for (int j = i + 1; j < allBrains.size(); j++) {
+
+				Brain brainI = (Brain) allBrains.get(i);
+				Brain brainJ = (Brain) allBrains.get(j);
+				Integer idI = brainI.getId();
+				Integer idJ = brainJ.getId();
+
+				if (getNombreIdeas(idI) >= getNombreIdeas(idJ)) {
+					rankingBrain.add(brainI);
+				} else {
+					rankingBrain.add(brainJ);
+				}
+
+			}
+		}
+
+		return rankingBrain;
+	}
+
+	@Override
+	public ArrayList<Brain> getRankingBrain3() {
+		ArrayList<Brain> rankingBrain3 = new ArrayList<Brain>();
+		ArrayList<Brain> rankingBrain = getRankingBrain();
+		for (int i = 0; i < 3; i++) {
+			rankingBrain3.add(rankingBrain.get(i));
+		}
+		return rankingBrain3;
+	}
+	
 	
 }

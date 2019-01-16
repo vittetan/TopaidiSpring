@@ -13,10 +13,13 @@
 <br /> 
 	<a href="${newIdeaUrl}" class="btn btn-success btn-xs">Let's share a new idea</a>
 	
-<br /> 
+<br /> <br /> 
 	<a href="/topaidi/home" class="btn btn-success btn-xs">Sign out</a>
 	
-		
+<br /> <br /> 
+<spring:url value="/brain/${brainId}/rankings" var="rankingsUrl"/>
+
+	<a href="${rankingsUrl}" class="btn btn-primary btn-xs">Rankings</a>		
 
 </div>
 </body>
