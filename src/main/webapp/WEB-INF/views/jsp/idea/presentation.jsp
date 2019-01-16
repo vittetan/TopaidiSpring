@@ -28,10 +28,13 @@
 
 			<!-- Preview Image -->
 			<c:if test="${i.image == null}">
-				<img  class="rounded mx-auto d-block" src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg" height="300px" width="auto">
+				<img class="rounded mx-auto d-block"
+					src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg"
+					height="300px" width="auto">
 			</c:if>
 			<c:if test="${i.image != null}">
-				<img  class="rounded mx-auto d-block" src="${i.image}" height="300px" width="auto">
+				<img class="rounded mx-auto d-block" src="${i.image}" height="300px"
+					width="auto">
 			</c:if>
 			<br />
 
@@ -48,7 +51,8 @@
 						<div class="form-group">
 							<form:input class="form-control" path="description" />
 						</div>
-						<button type="submit" class="btn btn-primary">Submit Comment</button>
+						<button type="submit" class="btn btn-primary">Submit
+							Comment</button>
 					</form:form>
 				</div>
 			</div>
@@ -71,9 +75,7 @@
 
 		<!-- Sidebar Widgets Column -->
 		<div class="col-md-4">
-			<br />
-			<br />
-			<br />
+			<br /> <br /> <br />
 
 			<!-- Date Widget -->
 			<div class="card">
@@ -93,9 +95,7 @@
 					<h4 class="mb-0">${i.category.name}</h4>
 				</blockquote>
 			</div>
-			<br />
-			<br />
-			<br />
+			<br /> <br /> <br />
 
 			<!-- Ranking Tops Widget -->
 			<div class="card">
@@ -118,21 +118,23 @@
 					<h4 class="mb-0">??????</h4>
 				</blockquote>
 			</div>
-			<br />
-			<br />
-			<br />				
+			<br /> <br /> <br />
 
 			<!-- Categories Widget -->
 			<div class="card my-4">
 				<h4 class="card-header">Vote</h4>
 				<blockquote class="blockquote text-center">
-					<form:form method="POST" action="${i.id}/vote" modelAttribute="voteIdea">
-						<div class="form-group">			
-							<br />
+					<div class="form-group">
+						<br />
+						<c:if test="${alreadyVoted && vote != null}">
+							<div class="alert alert-danger" role="alert">
+							You have already voted for this idea !</div>
+						</c:if>
+						<c:if test="${not alreadyVoted}">
 							<a class="btn btn-primary" href="?vote=top">TOP</a>
-							<a class="btn btn-primary" href="?vote=flop">FLOP</a>		
-						</div>
-					</form:form>
+							<a class="btn btn-primary" href="?vote=flop">FLOP</a>
+						</c:if>						
+					</div>
 				</blockquote>
 			</div>
 

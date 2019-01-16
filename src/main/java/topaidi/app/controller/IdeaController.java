@@ -41,8 +41,7 @@ public class IdeaController {
 	// ------------------------------------------------------------------
 
 	@GetMapping("/{id}")
-	public String idea(@PathVariable(value = "id") int id, @ModelAttribute("vote") String vote, HttpSession session,
-			Model model) {
+	public String idea(@PathVariable(value = "id") int id, @ModelAttribute("vote") String vote, @ModelAttribute("alreadyVoted") String alreadyVoted, HttpSession session, Model model) {
 
 		Object isConnected = session.getAttribute("isConnected");
 		if (isConnected == null) {
@@ -56,7 +55,7 @@ public class IdeaController {
 
 		Idea idea = idao.findByKey(id);
 		model.addAttribute("i", idea);
-
+		
 		Comment c = new Comment();
 		c.setIdea(idea);
 		model.addAttribute("comm", c);
@@ -65,21 +64,30 @@ public class IdeaController {
 		Vote v = new Vote();
 		v.setIdea(idea);
 		Brain brain = (Brain)session.getAttribute("person");
-		boolean hasVoted = bdao.alreadyVoted(idea, brain);
+		
+		boolean hasVoted;
+		if (alreadyVoted == null) {
+			hasVoted = bdao.alreadyVoted(idea, brain);
+		}else {
+			hasVoted = Boolean.valueOf(alreadyVoted);
+		}
+		model.addAttribute("alreadyVoted", hasVoted);
 		if (vote.equals("top")) {
 			if (hasVoted) {
-				return "idea/presentation";
+				return "redirect:/idea/" + idea.getId() + "?alreadyVoted=true";
 			}
 			v.setTop(true);
 			v.setBrain(brain);
 			vdao.insert(v);
+			return "redirect:/idea/" + idea.getId();
 		} else if (vote.equals("flop")) {
 			if (hasVoted) {
-				return "idea/presentation";
+				return "redirect:/idea/" + idea.getId() + "?alreadyVoted=true";
 			}
 			v.setTop(false);
 			v.setBrain(brain);
 			vdao.insert(v);
+			return "redirect:/idea/" + idea.getId();
 		}
 
 		return "idea/presentation";
