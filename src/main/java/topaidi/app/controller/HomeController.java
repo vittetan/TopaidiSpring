@@ -32,7 +32,7 @@ public class HomeController {
 	@Autowired
 	IdeaDao iDao;
 	
-	@RequestMapping("/home")
+	@GetMapping("/home")
 	public String home(@ModelAttribute("action") String action, Model model) {
 		if (action.equals("confirm")) {
 			model.addAttribute("action", action);
