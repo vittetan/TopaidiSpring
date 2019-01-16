@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -63,9 +64,9 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Brain> getUnValidatedBrains() {
 		TypedQuery<Brain> query = em.createQuery(
-				" SELECT b FROM Brain b WHERE b.isActivated= :isActivated", Brain.class);
+				" SELECT b FROM Brain b WHERE b.isValidated= :isValidated", Brain.class);
 		try {
-			List<Brain> results =  query.setParameter("isActivated", false).getResultList();
+			List<Brain> results =  query.setParameter("isValidated", false).getResultList();
 			return results;
 		} catch (NoResultException e) {
 			return null;

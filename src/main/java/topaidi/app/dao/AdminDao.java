@@ -9,6 +9,4 @@ public interface AdminDao extends GenericDao<Admin, Integer>{
 
 	public Admin getAdminByLogin(String login);
 	public List<Brain> getUnValidatedBrains();
-
-	
 }

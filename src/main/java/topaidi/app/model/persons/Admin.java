@@ -18,7 +18,7 @@ public class Admin extends Person {
 	}
 
 	public void validateBrain(Brain brain) {
-
+		
 	}
 
 	public void toggleBrain(Brain brain, boolean status) {
