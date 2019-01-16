@@ -120,32 +120,20 @@
 			</div>
 			<br />
 			<br />
-			<br />
+			<br />				
 
 			<!-- Categories Widget -->
 			<div class="card my-4">
 				<h4 class="card-header">Vote</h4>
-				<form:form method="POST" action="" modelAttribute="vote">
 				<blockquote class="blockquote text-center">
-					<br />
-					<div class="row">
-						<div class="col-lg-6">
-							<ul class="list-unstyled mb-0">
-								<li><input id="Top" type="radio" name="vote" value="TOP" />
-									<label for="Top">TOP</label></li>
-							</ul>
+					<form:form method="POST" action="${i.id}/vote" modelAttribute="voteIdea">
+						<div class="form-group">			
+							<br />
+							<a class="btn btn-primary" href="?vote=top">TOP</a>
+							<a class="btn btn-primary" href="?vote=flop">FLOP</a>		
 						</div>
-						<div class="col-lg-6">
-							<ul class="list-unstyled mb-0">
-								<li><input id="Flop" type="radio" name="vote" value="FLOP" />
-									<label for="Flop">FLOP</label></li>
-							</ul>
-						</div>
-					</div>
-					<br />
-					<button type="submit" class="btn btn-primary">Submit Vote</button>
+					</form:form>
 				</blockquote>
-				</form:form>
 			</div>
 
 		</div>

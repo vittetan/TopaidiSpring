@@ -17,6 +17,7 @@ public interface BrainDao extends GenericDao<Brain, Integer>{
 	public List<ReportIdea> getAllReportsIdea(Integer id);
 	public List<ReportComment> getAllReportsComment(Integer id);
 	public Brain getBrainByLogin(String email);
+	public boolean alreadyVoted(Idea idea, Brain brain);
 	
 	
 }
