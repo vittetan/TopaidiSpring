@@ -61,7 +61,7 @@ public class IdeaController {
 		c.setIdea(idea);
 		model.addAttribute("comm", c);
 		model.addAttribute("comments", idao.getAllComments(idea.getId()));
-		////
+		
 		Vote v = new Vote();
 		v.setIdea(idea);
 		Brain brain = (Brain)session.getAttribute("person");
@@ -95,18 +95,5 @@ public class IdeaController {
 		int n = comment.getIdea().getId();
 		return "redirect:/idea/" + n;
 	}
-
-	// ------------------------------------------------------------------
-
-//	@PostMapping("/{id}/vote")	
-//	public String addVote(@ModelAttribute("voteIdea") Vote vote, BindingResult result, HttpSession session) {	
-//		vote.setId(0);
-//		vote.setBrain((Brain)session.getAttribute("person"));
-//		
-//		vdao.insert(vote);
-//		
-//		int n = vote.getIdea().getId();
-//		return "redirect:/idea/"+ n;
-//	}
 
 }
