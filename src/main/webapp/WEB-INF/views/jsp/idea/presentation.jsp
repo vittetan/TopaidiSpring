@@ -9,6 +9,7 @@
 
 <div>
 
+	<!-- /.row -->
 	<div class="row">
 
 		<!-- Post Content Column -->
@@ -26,7 +27,12 @@
 			<br />
 
 			<!-- Preview Image -->
-			<img class="img-fluid rounded" src="${i.image}" alt=""> <br />
+			<c:if test="${i.image == null}">
+				<img  class="rounded mx-auto d-block" src="https://freerangestock.com/sample/38789/lightbulb-with-idea-concept-icon.jpg" height="300px" width="auto">
+			</c:if>
+			<c:if test="${i.image != null}">
+				<img  class="rounded mx-auto d-block" src="${i.image}" height="300px" width="auto">
+			</c:if>
 			<br />
 
 			<!-- Post Content -->
@@ -40,7 +46,6 @@
 					<form:form method="POST" action="" modelAttribute="comm">
 						<form:input path="idea.id" type="hidden" />
 						<div class="form-group">
-							<!-- <textarea class="form-control" rows="3"></textarea> -->
 							<form:input class="form-control" path="description" />
 						</div>
 						<button type="submit" class="btn btn-primary">Submit Comment</button>
@@ -62,6 +67,7 @@
 			</c:forEach>
 
 		</div>
+		<!-- Post Content Column -->
 
 		<!-- Sidebar Widgets Column -->
 		<div class="col-md-4">
@@ -119,6 +125,7 @@
 			<!-- Categories Widget -->
 			<div class="card my-4">
 				<h4 class="card-header">Vote</h4>
+				<form:form method="POST" action="" modelAttribute="vote">
 				<blockquote class="blockquote text-center">
 					<br />
 					<div class="row">
@@ -138,9 +145,11 @@
 					<br />
 					<button type="submit" class="btn btn-primary">Submit Vote</button>
 				</blockquote>
+				</form:form>
 			</div>
 
 		</div>
+		<!-- Sidebar Widgets Column -->
 
 	</div>
 	<!-- /.row -->
