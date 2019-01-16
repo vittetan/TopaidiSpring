@@ -21,6 +21,5 @@ public interface BrainDao extends GenericDao<Brain, Integer>{
 	public int getNombreIdeas(Integer id);
 	public ArrayList<Brain> getRankingBrain();
 	public ArrayList<Brain> getRankingBrain3();
-	
-	
+	public boolean alreadyVoted(Idea idea, Brain brain);
 }

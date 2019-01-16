@@ -12,13 +12,13 @@ public class Admin extends Person {
 	public Admin() {
 		super();
 	}
-	
+
 	public Admin(String login, String password, String pseudo) {
 		super(login, password, pseudo);
 	}
 
 	public void validateBrain(Brain brain) {
-
+		
 	}
 
 	public void toggleBrain(Brain brain, boolean status) {
@@ -44,4 +44,5 @@ public class Admin extends Person {
 	public void deleteCategory(Category category) {
 
 	}
+
 }

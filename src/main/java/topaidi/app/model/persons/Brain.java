@@ -41,6 +41,8 @@ public class Brain extends Person {
 	private Set<ReportComment> reportComments;
 	
 	public Brain() {
+		setValidated(false);
+		setActivated(true);
 	}
 	
 	public Brain(String login, String password, String pseudo) {

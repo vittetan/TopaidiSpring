@@ -141,5 +141,18 @@ public class BrainDaoImpl implements BrainDao {
 		return rankingBrain3;
 	}
 	
-	
+
+	@Override
+	public boolean alreadyVoted(Idea idea, Brain brain) {
+		TypedQuery<Vote> query = em.createQuery(
+				" SELECT v FROM Vote v WHERE v.idea = :idea and v.brain = :brain", Vote.class);
+		try {
+			query.setParameter("idea", idea);
+			query.setParameter("brain", brain);
+			Vote result = query.getSingleResult();
+			return true;
+		} catch (NoResultException e) {
+			return false;
+		}
+	}	
 }

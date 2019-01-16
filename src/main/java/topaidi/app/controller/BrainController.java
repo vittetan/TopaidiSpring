@@ -39,7 +39,7 @@ public class BrainController {
 				Brain b = (Brain)pers;
 				model.addAttribute("brainId", b.getId());
 			}
-			return "brain/welcome";
+			return "/brain/welcome";
  	}
 	
 		
@@ -72,6 +72,10 @@ public class BrainController {
 			return "/idea/newIdea";
 		}
 		idea.setId(0);
+		
+		if (idea.getImage().isEmpty()) {
+			idea.setImage(null);
+		}
 		iDao.insert(idea);
 		int n = idea.getId();
 		return "redirect:/idea/" + n;
