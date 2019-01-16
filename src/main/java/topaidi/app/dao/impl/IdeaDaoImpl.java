@@ -14,6 +14,7 @@ import topaidi.app.dao.IdeaDao;
 import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
+import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportIdea;
 
 @Repository
@@ -85,8 +86,12 @@ public class IdeaDaoImpl implements IdeaDao {
 
 	@Override
 	public double getPercentTop(Integer id) {
-		double p = getAllTops(id) / getNombreVotes(id);
+		double p = 0;
+		if(getNombreVotes(id)!=0) {
+			p = getAllTops(id) / getNombreVotes(id);
+		}
 		return p;
+		
 	}
 
 	@Override
@@ -95,13 +100,13 @@ public class IdeaDaoImpl implements IdeaDao {
 		ArrayList<Idea> rankingTop = new ArrayList<Idea>();
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
 
-		for (int i = 0; i < allIdeas.size() - 1; i++) {
+		for (int i = 0; i < (allIdeas.size() - 1); i++) {
 			for (int j = i + 1; j < allIdeas.size(); j++) {
 
 				Idea ideaI = (Idea) allIdeas.get(i);
 				Idea ideaJ = (Idea) allIdeas.get(j);
 				Integer idI = ideaI.getId();
-				Integer idJ = ideaI.getId();
+				Integer idJ = ideaJ.getId();
 
 				if (getPercentTop(idI) > getPercentTop(idJ)) {
 					rankingTop.add(ideaI);
@@ -147,7 +152,7 @@ public class IdeaDaoImpl implements IdeaDao {
 				Idea ideaI = (Idea) allIdeas.get(i);
 				Idea ideaJ = (Idea) allIdeas.get(j);
 				Integer idI = ideaI.getId();
-				Integer idJ = ideaI.getId();
+				Integer idJ = ideaJ.getId();
 
 				if (getNombreVotes(idI) >= getNombreVotes(idJ)) {
 					rankingBuzz.add(ideaI);
@@ -169,5 +174,31 @@ public class IdeaDaoImpl implements IdeaDao {
 		}
 		return rankingBuzz10;
 	}
-
+	
+	public ArrayList<Idea> getAllNotVotedIdeas(Brain brain, ArrayList<Idea> allIdeas){
+		ArrayList<Idea> allNotVotedIdeas = new ArrayList<Idea>();
+		boolean notVoted = false;
+		
+		for(int i=0; i < allIdeas.size(); i++) {
+			int ideaBrainId = allIdeas.get(i).getBrain().getId();
+			if(ideaBrainId != brain.getId()) {
+				notVoted = true;
+				ArrayList<Vote> allVotes= (ArrayList<Vote>) allIdeas.get(i).getVotes();
+				for(int j=0; j < allVotes.size(); j++) {
+					if(allVotes.get(j).getBrain().getId() == brain.getId()) {
+						notVoted=false;
+						break;
+					}
+				}
+			}
+			if(notVoted) {
+				allNotVotedIdeas.add(allIdeas.get(i));
+			}
+		}
+		
+		return allNotVotedIdeas;		
+	}
+	
+	
+	
 }

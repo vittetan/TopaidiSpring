@@ -81,5 +81,30 @@ public class BrainController {
 		return "redirect:/idea/" + n;
 	}
 	
+	
+	@GetMapping ("/{id}/rankings")
+	public String rankings(@PathVariable(value="id") int id, HttpSession session, Model model) {
+		Object isConnected = session.getAttribute("isConnected");
+		if (isConnected == null) {
+			return "redirect:/login";
+		} else {
+			boolean c = (boolean)isConnected;
+			if(!c) {
+				return "redirect:/login";
+			}
+		}
+		
+		Brain brain = (Brain)session.getAttribute("person");
+		model.addAttribute("rankingTop10", iDao.getRankingTop10());
+		model.addAttribute("rankingBuzz10", iDao.getRankingBuzz10());
+		model.addAttribute("rankingBrains", bDao.getRankingBrain());
+		
+		return "/brain/rankings";
+	}
+	
+	@PostMapping ("/{id}/rankings") 
+	public String rankingsShow(@PathVariable(value="id") int id, HttpSession session, Model model) {
+		return "/brain/rankings";
+	}
 		
 }
