@@ -17,6 +17,7 @@ public interface IdeaDao extends GenericDao<Idea, Integer>{
 	public int getAllTops(Integer id);
 	public double getPercentTop(Integer id);
 	public ArrayList<Idea> getRankingTop();
+	public ArrayList<Idea> getRankingBuzz();
 	
 		
 }

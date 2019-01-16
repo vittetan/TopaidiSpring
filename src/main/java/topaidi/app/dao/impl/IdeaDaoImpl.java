@@ -95,8 +95,8 @@ public class IdeaDaoImpl implements IdeaDao {
 		ArrayList<Idea> rankingTop = new ArrayList<Idea>();
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
 
-		for (int i = 0; i < allIdeas.size()-1; i++) {
-			for (int j = i+1; j < allIdeas.size(); j++) {
+		for (int i = 0; i < allIdeas.size() - 1; i++) {
+			for (int j = i + 1; j < allIdeas.size(); j++) {
 
 				Idea ideaI = (Idea) allIdeas.get(i);
 				Idea ideaJ = (Idea) allIdeas.get(j);
@@ -116,26 +116,58 @@ public class IdeaDaoImpl implements IdeaDao {
 								} else {
 									rankingTop.add(ideaJ);
 								}
+							} else {
+								rankingTop.add(ideaJ);
 							}
-							rankingTop.add(ideaJ);
 						}
+					} else {
+						rankingTop.add(ideaJ);
 					}
-					rankingTop.add(ideaJ);
 				}
-			}			
+			}
 		}
-
 		return rankingTop;
 	}
-	
+
 	public ArrayList<Idea> getRankingTop10() {
 		ArrayList<Idea> rankingTop10 = new ArrayList<Idea>();
 		ArrayList<Idea> rankingTop = getRankingTop();
-		for (int i=0; i<10; i++) {
+		for (int i = 0; i < 10; i++) {
 			rankingTop10.add(rankingTop.get(i));
 		}
 		return rankingTop10;
 	}
-	
+
+	public ArrayList<Idea> getRankingBuzz() {
+		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
+		ArrayList<Idea> rankingBuzz = new ArrayList<Idea>();
+		for (int i = 0; i < allIdeas.size() - 1; i++) {
+			for (int j = i + 1; j < allIdeas.size(); j++) {
+
+				Idea ideaI = (Idea) allIdeas.get(i);
+				Idea ideaJ = (Idea) allIdeas.get(j);
+				Integer idI = ideaI.getId();
+				Integer idJ = ideaI.getId();
+
+				if (getNombreVotes(idI) >= getNombreVotes(idJ)) {
+					rankingBuzz.add(ideaI);
+				} else {
+					rankingBuzz.add(ideaJ);
+				}
+
+			}
+		}
+
+		return rankingBuzz;
+	}
+
+	public ArrayList<Idea> getRankingBuzz10() {
+		ArrayList<Idea> rankingBuzz10 = new ArrayList<Idea>();
+		ArrayList<Idea> rankingBuzz = getRankingBuzz();
+		for (int i = 0; i < 10; i++) {
+			rankingBuzz10.add(rankingBuzz.get(i));
+		}
+		return rankingBuzz10;
+	}
 
 }
