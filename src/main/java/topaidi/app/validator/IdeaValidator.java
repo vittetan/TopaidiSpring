@@ -16,9 +16,9 @@ public class IdeaValidator implements Validator {
 	
 	@Override
 	public void validate(Object target, Errors errors) {
+		Idea idea = (Idea) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "title.empty", "Please choose a title for you idea. Thanks!");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "description.empty", "Please, give us some details about your idea. Thanks!");
-		Idea idea = (Idea) target;
 		if(idea.getTitle().length()<= 5) {
 			errors.rejectValue("title", "title.title.notpasswordPlease", "Please, choose a more descriptive title. Thanks!");
 		}

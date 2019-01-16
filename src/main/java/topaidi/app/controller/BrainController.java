@@ -1,6 +1,6 @@
 package topaidi.app.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +18,6 @@ import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
 import topaidi.app.model.categories.Category;
-import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.validator.IdeaValidator;
@@ -69,10 +68,10 @@ public class BrainController {
 	}
 
 	@PostMapping ("/{id}/newIdea") 
-	public String newIdea(@ModelAttribute("idea") Idea idea, @ModelAttribute("categories") List<Category> categories, BindingResult result, HttpSession session) {
+	public String newIdea(@ModelAttribute("idea") Idea idea, BindingResult result, HttpSession session, Model model) {
 		new IdeaValidator().validate(idea, result);
 		if (result.hasErrors()) {
-			categories = cDao.findAll();
+			model.addAttribute("categories", cDao.findAll());
 			return "/idea/newIdea";
 		}
 		idea.setId(0);
