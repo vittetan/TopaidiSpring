@@ -110,22 +110,21 @@ public class BrainDaoImpl implements BrainDao {
 	@Override
 	public ArrayList<Brain> getRankingBrain() {
 		ArrayList<Brain> allBrains = (ArrayList<Brain>) findAll();
+		ArrayList<Brain> allBrainst = allBrains;
 		ArrayList<Brain> rankingBrain = new ArrayList<Brain>();
-		for (int i = 0; i < (allBrains.size() - 1); i++) {
+		
+		for (int i = 0; i < allBrains.size() - 1; i++) {
+			Brain brainI = (Brain) allBrains.get(i);
+			Integer idI = brainI.getId();
 			for (int j = i + 1; j < allBrains.size(); j++) {
-
-				Brain brainI = (Brain) allBrains.get(i);
-				Brain brainJ = (Brain) allBrains.get(j);
-				Integer idI = brainI.getId();
-				Integer idJ = brainJ.getId();
-
-				if (getNombreIdeas(idI) >= getNombreIdeas(idJ)) {
-					rankingBrain.add(brainI);
-				} else {
-					rankingBrain.add(brainJ);
-				}
-
+				Brain ideaJ = (Brain) allBrains.get(j);
+				Integer idJ = ideaJ.getId();
+				if (getNombreIdeas(idJ) > getNombreIdeas(idI)) {
+					brainI = ideaJ;
+					allBrains.set(j,allBrainst.get(i));
+				} 
 			}
+			rankingBrain.add(brainI);
 		}
 
 		return rankingBrain;

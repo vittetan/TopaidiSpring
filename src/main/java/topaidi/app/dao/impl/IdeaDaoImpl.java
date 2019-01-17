@@ -25,7 +25,7 @@ public class IdeaDaoImpl implements IdeaDao {
 	EntityManager em;
 
 	public List<Idea> findAll() {
-		return em.createQuery("from Idea idea order by id desc").getResultList();
+		return em.createQuery("from Idea idea order by datecreation desc").getResultList();
 	}
 
 	public Idea findByKey(Integer id) {
@@ -99,37 +99,28 @@ public class IdeaDaoImpl implements IdeaDao {
 
 		ArrayList<Idea> rankingTop = new ArrayList<Idea>();
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
+		ArrayList<Idea> allIdeast = allIdeas;
 
-		for (int i = 0; i < (allIdeas.size() - 1); i++) {
-			for (int j = i + 1; j < allIdeas.size(); j++) {
-
-				Idea ideaI = (Idea) allIdeas.get(i);
+		for (int i = 0; i < allIdeas.size(); i++) {
+			Idea ideaI = (Idea) allIdeas.get(i);
+			Integer idI = ideaI.getId();
+			for (int j = i + 1; j < allIdeas.size(); j++) {	
 				Idea ideaJ = (Idea) allIdeas.get(j);
-				Integer idI = ideaI.getId();
 				Integer idJ = ideaJ.getId();
 
-				if (getPercentTop(idI) > getPercentTop(idJ)) {
-					rankingTop.add(ideaI);
+				if (getPercentTop(idJ) > getPercentTop(idI)) {
+					ideaI = ideaJ;
+					allIdeas.set(j,allIdeast.get(i));
 				} else {
-					if (getPercentTop(idI) == getPercentTop(idJ)) {
-						if (getNombreVotes(idI) > getNombreVotes(idJ)) {
-							rankingTop.add(ideaI);
-						} else {
-							if (getNombreVotes(idI) == getNombreVotes(idJ)) {
-								if (ideaI.getDateCreation().after(ideaJ.getDateCreation())) {
-									rankingTop.add(ideaI);
-								} else {
-									rankingTop.add(ideaJ);
-								}
-							} else {
-								rankingTop.add(ideaJ);
-							}
+					if(getPercentTop(idJ) == getPercentTop(idI)) {
+						if(getNombreVotes(idJ) > getNombreVotes(idI)) {
+							ideaI = ideaJ;
+							allIdeas.set(j,allIdeast.get(i));
 						}
-					} else {
-						rankingTop.add(ideaJ);
 					}
 				}
 			}
+			rankingTop.add(ideaI);
 		}
 		return rankingTop;
 	}
@@ -137,7 +128,15 @@ public class IdeaDaoImpl implements IdeaDao {
 	public ArrayList<Idea> getRankingTop10() {
 		ArrayList<Idea> rankingTop10 = new ArrayList<Idea>();
 		ArrayList<Idea> rankingTop = getRankingTop();
-		for (int i = 0; i < 10; i++) {
+		
+		int n;
+		if(rankingTop.size() < 10) {
+			n=rankingTop.size();
+		}else {
+			n=10;
+		}
+		
+		for (int i = 0; i < n; i++) {
 			rankingTop10.add(rankingTop.get(i));
 		}
 		return rankingTop10;
@@ -145,22 +144,21 @@ public class IdeaDaoImpl implements IdeaDao {
 
 	public ArrayList<Idea> getRankingBuzz() {
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
+		ArrayList<Idea> allIdeast = allIdeas;
 		ArrayList<Idea> rankingBuzz = new ArrayList<Idea>();
+		
 		for (int i = 0; i < allIdeas.size() - 1; i++) {
+			Idea ideaI = (Idea) allIdeas.get(i);
+			Integer idI = ideaI.getId();
 			for (int j = i + 1; j < allIdeas.size(); j++) {
-
-				Idea ideaI = (Idea) allIdeas.get(i);
 				Idea ideaJ = (Idea) allIdeas.get(j);
-				Integer idI = ideaI.getId();
 				Integer idJ = ideaJ.getId();
-
-				if (getNombreVotes(idI) >= getNombreVotes(idJ)) {
-					rankingBuzz.add(ideaI);
-				} else {
-					rankingBuzz.add(ideaJ);
-				}
-
+				if (getNombreVotes(idJ) > getNombreVotes(idI)) {
+					ideaI = ideaJ;
+					allIdeas.set(j,allIdeast.get(i));
+				} 
 			}
+			rankingBuzz.add(ideaI);
 		}
 
 		return rankingBuzz;
@@ -169,7 +167,15 @@ public class IdeaDaoImpl implements IdeaDao {
 	public ArrayList<Idea> getRankingBuzz10() {
 		ArrayList<Idea> rankingBuzz10 = new ArrayList<Idea>();
 		ArrayList<Idea> rankingBuzz = getRankingBuzz();
-		for (int i = 0; i < 10; i++) {
+		
+		int n;
+		if(rankingBuzz.size() < 10) {
+			n=rankingBuzz.size();
+		}else {
+			n=10;
+		}
+		
+		for (int i = 0; i < n; i++) {
 			rankingBuzz10.add(rankingBuzz.get(i));
 		}
 		return rankingBuzz10;
