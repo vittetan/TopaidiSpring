@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
+import topaidi.app.dao.IdeaDao;
+import topaidi.app.dao.ReportIdeaDao;
 import topaidi.app.model.categories.Category;
+import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Admin;
 import topaidi.app.model.persons.Brain;
+import topaidi.app.model.reports.ReportIdea;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,6 +37,12 @@ public class AdminController {
 	@Autowired
 	CategoryDao cDao;
 	
+	@Autowired
+	ReportIdeaDao riDao;
+	
+	@Autowired
+	IdeaDao iDao;
+	
 	
 	@GetMapping("/{id}/welcome")
 	public String home(Model model) {
@@ -41,6 +51,7 @@ public class AdminController {
 			model.addAttribute("unvalidatedUsers", brains);
 			model.addAttribute("categories", cDao.findAll());
 			model.addAttribute("newCategory", new Category());
+			model.addAttribute("reportIdeas", riDao.findAll());
 			return "/admin/welcome";
  	}
 	
@@ -60,5 +71,36 @@ public class AdminController {
 		Admin admin = (Admin)session.getAttribute("person");
 		return "redirect:/admin/" + admin.getId() + "/welcome";
 	}
+	
+	
+	@GetMapping("desactivateBrain/{id}")
+	public String desactivateBrain(@PathVariable(value="id") int id,HttpSession session) {
+		Brain brain = bDao.findByKey(id);
+		brain.setActivated(false);
+		bDao.update(brain);
+		
+		Admin admin = (Admin)session.getAttribute("person");
+		return "redirect:/admin/" + admin.getId() + "/welcome";
+	}
+	
+	
+	@GetMapping("desactivateIdea/{id}")
+	public String desactivateIdea(@PathVariable(value="id") int id,HttpSession session) {
+		Idea idea = iDao.findByKey(id);
+		idea.setActivated(false);
+		iDao.update(idea);
+		
+		Admin admin = (Admin)session.getAttribute("person");
+		return "redirect:/admin/" + admin.getId() + "/welcome";
+	}
+	
+	@GetMapping("/deleteReportIdea/{id}")
+	public String deleteReportIdea(@PathVariable(value="id") int id, HttpSession session) {
+		riDao.deleteByKey(id);
+		
+		Admin admin = (Admin)session.getAttribute("person");
+		return "redirect:/admin/" + admin.getId() + "/welcome";
+	}
+	
 	
 }

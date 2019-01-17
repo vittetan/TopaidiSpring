@@ -214,7 +214,4 @@ public class Idea {
 	public void setReportIdeas(Set<ReportIdea> reportIdeas) {
 		this.reportIdeas = reportIdeas;
 	}
-	
-
-
 }
