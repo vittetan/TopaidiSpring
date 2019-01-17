@@ -17,6 +17,7 @@ import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
 import topaidi.app.dao.IdeaDao;
+import topaidi.app.dao.ReportCommentDao;
 import topaidi.app.dao.ReportIdeaDao;
 import topaidi.app.model.categories.Category;
 import topaidi.app.model.ideas.Idea;
@@ -43,6 +44,9 @@ public class AdminController {
 	@Autowired
 	IdeaDao iDao;
 	
+	@Autowired
+	ReportCommentDao rcDao;
+	
 	
 	@GetMapping("/{id}/welcome")
 	public String home(Model model) {
@@ -52,6 +56,7 @@ public class AdminController {
 			model.addAttribute("categories", cDao.findAll());
 			model.addAttribute("newCategory", new Category());
 			model.addAttribute("reportIdeas", riDao.findAll());
+			model.addAttribute("reportComments",rcDao.findAll());
 			return "/admin/welcome";
  	}
 	

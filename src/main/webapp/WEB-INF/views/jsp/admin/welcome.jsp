@@ -53,34 +53,40 @@
 			</div>
 			<div id="collapse2" class="panel-collapse collapse">
 				<div class="panel-body">
-				<spring:url value="/admin/addCategory" var="addCategory"/> 
-				<form:form method="POST" action="${addCategory}" modelAttribute="newCategory">
-					<table class="table">
-						<thead class="thead-light">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Name</th>
-								<th scope="col">Description</th>
-								<th scope="row">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${categories}" var="category">
+					<spring:url value="/admin/addCategory" var="addCategory" />
+					<form:form method="POST" action="${addCategory}"
+						modelAttribute="newCategory">
+						<table class="table">
+							<thead class="thead-light">
 								<tr>
-									<th scope="row">${category.id}</th>
-									<td>${category.name}</td>
-									<td>${category.description}</td>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Description</th>
+									<th scope="row">Action</th>
 								</tr>
-							</c:forEach>
-							<tr>
-								<th scope="row"></th>
-								<td><div class="form control"><form:input path="name"/></div></td>
-								<td><div class="form control"><form:input path="description"/></div></td>
-								<td><button class="btn btn-success" type="submit">Add a category</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</form:form>
+							</thead>
+							<tbody>
+								<c:forEach items="${categories}" var="category">
+									<tr>
+										<th scope="row">${category.id}</th>
+										<td>${category.name}</td>
+										<td>${category.description}</td>
+									</tr>
+								</c:forEach>
+								<tr>
+									<th scope="row"></th>
+									<td><div class="form control">
+											<form:input path="name" />
+										</div></td>
+									<td><div class="form control">
+											<form:input path="description" />
+										</div></td>
+									<td><button class="btn btn-success" type="submit">Add
+											a category</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form:form>
 				</div>
 			</div>
 		</div>
@@ -106,28 +112,23 @@
 						<tbody>
 							<c:forEach items="${reportIdeas}" var="reportIdea">
 								<tr>
-									<spring:url  value="" var=""/>
-									<spring:url  value="" var=""/>
-									
-									<th scope="row">${idea.id}</th>
+									<th scope="row">${reportIdea.id}</th>
 									<td>
-										<spring:url  value="/idea/${reportIdea.idea.id}" var="viewIdea"/>
-										<a class="btn btn-success" href="${viewIdea}">View Idea</a>
-									</td>									
+									<spring:url value="/idea/${reportIdea.idea.id}" var="viewIdea" /> 
+									<a class="btn btn-success"href="${viewIdea}">View Idea</a>
+									</td>
 									<td>${reportIdea.brain.pseudo}</td>
 									<td>${reportIdea.description}</td>
-									<td>
-										
-										<spring:url  value="/admin/desactivateBrain/${reportIdea.idea.brain.id}" var="desactivateBrain"/>
-										<a class="btn btn-danger" href="${desactivateBrain}" >Desactivate Idea's Brain</a>
-										
-										<spring:url  value="/admin/desactivateIdea/${reportIdea.idea.id}" var="desactivateIdea"/>
-										<a class="btn btn-danger" href="${desactivateIdea}">Desactivate Idea</a>
-										
-										<spring:url  value="/admin/deleteReportIdea/${reportIdea.id}" var="deleteReportIdea"/>
-										<a class="btn btn-danger" href="${deleteReportIdea}">Delete Report</a>
-
-									</td>
+									<td><spring:url
+											value="/admin/desactivateBrain/${reportIdea.idea.brain.id}"
+											var="desactivateBrain" /> <a class="btn btn-danger"
+										href="${desactivateBrain}">Desactivate Idea's Brain</a> <spring:url
+											value="/admin/desactivateIdea/${reportIdea.idea.id}"
+											var="desactivateIdea" /> <a class="btn btn-danger"
+										href="${desactivateIdea}">Desactivate Idea</a> <spring:url
+											value="/admin/deleteReportIdea/${reportIdea.id}"
+											var="deleteReportIdea" /> <a class="btn btn-danger"
+										href="${deleteReportIdea}">Delete Report</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -135,18 +136,53 @@
 				</div>
 			</div>
 		</div>
+
+
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						href="#collapse4">Reports about the comments</a>
+				</h4>
+			</div>
+			<div id="collapse4" class="panel-collapse collapse">
+				<div class="panel-body">
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="row">Comment</th>
+								<th scope="col">Brain</th>
+								<th scope="col">Description</th>
+								<th scope="row">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${reportComments}" var="reportComment">
+								<tr>
+									<th scope="row">${reportComment.id}</th>
+									<td>${reportComment.comment.description}</td>
+									<td>${reportComment.brain.pseudo}</td>
+									<td>${reportComment.description}</td>
+									<td>
+										les boutons
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+
+
+
+		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
 </div>
 </body>
 </html>

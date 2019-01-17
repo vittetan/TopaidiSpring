@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CommentDao;
 import topaidi.app.dao.IdeaDao;
+import topaidi.app.dao.ReportCommentDao;
 import topaidi.app.dao.ReportIdeaDao;
 import topaidi.app.dao.VoteDao;
 import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
+import topaidi.app.model.persons.Admin;
 import topaidi.app.model.persons.Brain;
+import topaidi.app.model.reports.ReportComment;
 import topaidi.app.model.reports.ReportIdea;
 
 @Controller
@@ -41,6 +44,9 @@ public class IdeaController {
 	
 	@Autowired
 	ReportIdeaDao riDao;
+	
+	@Autowired
+	ReportCommentDao rcDao;
 
 	// ------------------------------------------------------------------
 
@@ -68,14 +74,27 @@ public class IdeaController {
 
 		Vote v = new Vote();
 		v.setIdea(idea);
-		Brain brain = (Brain) session.getAttribute("person");
 		
-		ReportIdea reportIdea = new ReportIdea();
-		model.addAttribute("reportIdea", reportIdea);
-
-		boolean hasVoted = bdao.alreadyVoted(idea, brain);
+		Brain brain = null;
+		Admin admin = null;
+		if (session.getAttribute("person") instanceof Brain) {
+			brain = (Brain) session.getAttribute("person");
+		} else if (session.getAttribute("person") instanceof Admin) {
+			admin = (Admin) session.getAttribute("person");
+		}
+		
+		boolean hasVoted;
+		if (brain != null) {
+			hasVoted = bdao.alreadyVoted(idea, brain);
+		} else {
+			hasVoted = true;
+		}
+		
 		model.addAttribute("alreadyVoted", hasVoted);
 
+		ReportIdea reportIdea = new ReportIdea();
+		model.addAttribute("reportIdea", reportIdea);
+		
 		if (hasVoted) {
 			return "idea/presentation";
 		} else {
@@ -116,5 +135,27 @@ public class IdeaController {
 		
 		return "redirect:/idea/" + id;
 	}
+	
+	
+	@GetMapping("{ideaId}/reportComment/{commentId}")
+	public String reportComment(@PathVariable(value="ideaId") int ideaId, @PathVariable(value="commentId") int commentId, HttpSession session) {
+		
+		ReportComment rc = new ReportComment();
+		
+		Comment comment = cdao.findByKey(commentId);
+		rc.setComment(comment);
+		
+		Brain brain = (Brain) session.getAttribute("person");
+		rc.setBrain(brain);
+		
+		rc.setDescription(brain.getPseudo() + " reported " + comment.getBrain().getPseudo() + "'s comment");
+		
+		rcDao.insert(rc);
+		
+		return "redirect:/idea/" + ideaId;
+	}
+	
+	
+	
 	
 }

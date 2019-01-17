@@ -77,7 +77,7 @@
 						</div>
 					</div>
 
-					<!-- Single Comment -->
+					<!-- All comments -->
 					<c:forEach items="${comments}" var="comment">
 						<div class="media mb-4">
 							<img class="d-flex mr-3 rounded-circle"
@@ -86,6 +86,8 @@
 							<div class="media-body">
 								<h4 class="mt-0">${comment.brain.pseudo}</h4>
 								<p>${comment.description}</p>
+								<spring:url value="/idea/${i.id}/reportComment/${comment.id}" var="reportComment"/>
+								<a class="btn btn-danger btn-xs" href="${reportComment}" >Report this comment</a>
 							</div>
 						</div>
 					</c:forEach>
