@@ -74,3 +74,8 @@ a:hover {
 .col-md-7 {
 	margin: auto;
 }
+
+.brain {
+	background-color: #9bb7ff;
+	padding-bottom: 20px;
+}
