@@ -25,7 +25,6 @@ import topaidi.app.model.persons.Brain;
 @RequestMapping("/idea")
 public class IdeaController {
 
-	HttpSession session;
 	@Autowired
 	IdeaDao idao;
 
@@ -34,14 +33,15 @@ public class IdeaController {
 
 	@Autowired
 	VoteDao vdao;
-	
+
 	@Autowired
 	BrainDao bdao;
 
 	// ------------------------------------------------------------------
 
 	@GetMapping("/{id}")
-	public String idea(@PathVariable(value = "id") int id, @ModelAttribute("vote") String vote, @ModelAttribute("alreadyVoted") String alreadyVoted, HttpSession session, Model model) {
+	public String idea(@PathVariable(value = "id") int id, @ModelAttribute("vote") String vote, HttpSession session,
+			Model model) {
 
 		Object isConnected = session.getAttribute("isConnected");
 		if (isConnected == null) {
@@ -55,39 +55,33 @@ public class IdeaController {
 
 		Idea idea = idao.findByKey(id);
 		model.addAttribute("i", idea);
-		
+
 		Comment c = new Comment();
 		c.setIdea(idea);
 		model.addAttribute("comm", c);
 		model.addAttribute("comments", idao.getAllComments(idea.getId()));
-		
+
 		Vote v = new Vote();
 		v.setIdea(idea);
-		Brain brain = (Brain)session.getAttribute("person");
-		
-		boolean hasVoted;
-		if (alreadyVoted == null) {
-			hasVoted = bdao.alreadyVoted(idea, brain);
-		}else {
-			hasVoted = Boolean.valueOf(alreadyVoted);
-		}
+		Brain brain = (Brain) session.getAttribute("person");
+
+		boolean hasVoted = bdao.alreadyVoted(idea, brain);
 		model.addAttribute("alreadyVoted", hasVoted);
-		if (vote.equals("top")) {
-			if (hasVoted) {
-				return "redirect:/idea/" + idea.getId() + "?alreadyVoted=true";
+
+		if (hasVoted) {
+			return "idea/presentation";
+		} else {
+			if (vote.equals("top")) {
+				v.setTop(true);
+				v.setBrain(brain);
+				vdao.insert(v);
+				return "redirect:/idea/" + idea.getId();
+			} else if (vote.equals("flop")) {
+				v.setTop(false);
+				v.setBrain(brain);
+				vdao.insert(v);
+				return "redirect:/idea/" + idea.getId();
 			}
-			v.setTop(true);
-			v.setBrain(brain);
-			vdao.insert(v);
-			return "redirect:/idea/" + idea.getId();
-		} else if (vote.equals("flop")) {
-			if (hasVoted) {
-				return "redirect:/idea/" + idea.getId() + "?alreadyVoted=true";
-			}
-			v.setTop(false);
-			v.setBrain(brain);
-			vdao.insert(v);
-			return "redirect:/idea/" + idea.getId();
 		}
 
 		return "idea/presentation";

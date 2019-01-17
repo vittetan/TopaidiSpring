@@ -30,7 +30,8 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${unvalidatedUsers}" var="user">
-								<spring:url value="/admin/activate/${user.id}" var="activateBrain" />
+								<spring:url value="/admin/activate/${user.id}"
+									var="activateBrain" />
 								<tr>
 									<th scope="row">${user.id}</th>
 									<td>${user.pseudo}</td>
@@ -47,12 +48,39 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse2"> Collapsible Group 2</a>
+						href="#collapse2">Categories</a>
 				</h4>
 			</div>
 			<div id="collapse2" class="panel-collapse collapse">
 				<div class="panel-body">
-				
+				<spring:url value="/admin/addCategory" var="addCategory"/> 
+				<form:form method="POST" action="${addCategory}" modelAttribute="newCategory">
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Description</th>
+								<th scope="row">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${categories}" var="category">
+								<tr>
+									<th scope="row">${category.id}</th>
+									<td>${category.name}</td>
+									<td>${category.description}</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<th scope="row"></th>
+								<td><div class="form control"><form:input path="name"/></div></td>
+								<td><div class="form control"><form:input path="description"/></div></td>
+								<td><button class="btn btn-success" type="submit">Add a category</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</form:form>
 				</div>
 			</div>
 		</div>
@@ -60,13 +88,11 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse3"> Collapsible Group 3</a>
+						href="#collapse3">Collapsible Group 3</a>
 				</h4>
 			</div>
 			<div id="collapse3" class="panel-collapse collapse">
-				<div class="panel-body">
-				
-				</div>
+				<div class="panel-body"></div>
 			</div>
 		</div>
 	</div>
