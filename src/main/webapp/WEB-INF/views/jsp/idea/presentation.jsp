@@ -126,13 +126,16 @@
 				<blockquote class="blockquote text-center">
 					<div class="form-group">
 						<br />
-						<c:if test="${alreadyVoted && vote != null}">
+						<c:if test="${alreadyVoted}">
 							<div class="alert alert-danger" role="alert">
 							You have already voted for this idea !</div>
 						</c:if>
 						<c:if test="${not alreadyVoted}">
-							<a class="btn btn-primary" href="?vote=top">TOP</a>
-							<a class="btn btn-primary" href="?vote=flop">FLOP</a>
+							<spring:url value="/idea/${i.id}?vote=top" var="redirectVoteTop"/>
+							<a class="btn btn-primary" href="${redirectVoteTop}">TOP</a>
+							
+							<spring:url value="/idea/${i.id}?vote=flop" var="redirectVoteFlop"/>
+							<a class="btn btn-primary" href="${redirectVoteFlop}">FLOP</a>
 						</c:if>						
 					</div>
 				</blockquote>
