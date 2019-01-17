@@ -8,7 +8,7 @@
 <jsp:include page="../include/header.jsp" />
 
 <div>
-
+éééé
 	<!-- /.row -->
 	<div class="row">
 
@@ -40,113 +40,136 @@
 
 			<!-- Post Content -->
 			<p class="idea-description">${i.description}</p>
-			<br />
-
-			<!-- Comments Form -->
-			<div class="card my-4">
-				<h4 class="card-header">Leave a Comment:</h4>
-				<div class="card-body">
-					<form:form method="POST" action="" modelAttribute="comm">
-						<form:input path="idea.id" type="hidden" />
-						<div class="form-group">
-							<form:input class="form-control" path="description" />
+			<br> <br>
+			
+			<!-- Report form -->
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								href="#collapse1">Report this idea</a>
+						</h4>
+					</div>
+					<div id="collapse1" class="panel-collapse collapse">
+						<div class="panel-body">
+							<spring:url value="/idea/${i.id}/report" var="reportThisIdea"/>
+							<form:form method="POST" action="${reportThisIdea}" modelAttribute="reportIdea">
+								<form:input path="description" class="form-control" />
+								<button type="submit" class="btn btn-danger">Report this idea</button>
+							</form:form>
 						</div>
-						<button type="submit" class="btn btn-primary">Submit
-							Comment</button>
-					</form:form>
-				</div>
+						</div>
+					</div>
 			</div>
 
-			<!-- Single Comment -->
-			<c:forEach items="${comments}" var="comment">
-				<div class="media mb-4">
-					<img class="d-flex mr-3 rounded-circle"
-						src="https://kotmo.ca/wp-content/uploads/2018/03/commentaire-sur-le-blog-symbole-de-bulle_318-64486.jpg"
-						height="35px" width="auto" alt="">
-					<div class="media-body">
-						<h4 class="mt-0">${comment.brain.pseudo}</h4>
-						<p>${comment.description}</p>
+					<!-- Comments Form -->
+					<div class="card my-4">
+						<h4 class="card-header">Leave a Comment:</h4>
+						<div class="card-body">
+							<form:form method="POST" action="" modelAttribute="comm">
+								<form:input path="idea.id" type="hidden" />
+								<div class="form-group">
+									<form:input class="form-control" path="description" />
+								</div>
+								<button type="submit" class="btn btn-primary">Submit
+									Comment</button>
+							</form:form>
+						</div>
 					</div>
+
+					<!-- Single Comment -->
+					<c:forEach items="${comments}" var="comment">
+						<div class="media mb-4">
+							<img class="d-flex mr-3 rounded-circle"
+								src="https://kotmo.ca/wp-content/uploads/2018/03/commentaire-sur-le-blog-symbole-de-bulle_318-64486.jpg"
+								height="35px" width="auto" alt="">
+							<div class="media-body">
+								<h4 class="mt-0">${comment.brain.pseudo}</h4>
+								<p>${comment.description}</p>
+							</div>
+						</div>
+					</c:forEach>
+
 				</div>
-			</c:forEach>
+				<!-- Post Content Column -->
+
+				<!-- Sidebar Widgets Column -->
+				<div class="col-md-4">
+					<br /> <br /> <br />
+
+					<!-- Date Widget -->
+					<div class="card">
+						<h4 class="card-header">Publication date</h4>
+						<blockquote class="blockquote text-center">
+							<h6 class="card-text"></h6>
+							<h4 class="mb-0">${i.dateCreation}</h4>
+						</blockquote>
+					</div>
+					<br />
+
+					<!-- Categories Widget -->
+					<div class="card">
+						<h4 class="card-header">Category</h4>
+						<blockquote class="blockquote text-center">
+							<h6 class="card-text"></h6>
+							<h4 class="mb-0">${i.category.name}</h4>
+						</blockquote>
+					</div>
+					<br /> <br /> <br />
+
+					<!-- Ranking Tops Widget -->
+					<div class="card">
+						<h4 class="card-header">Ranking Tops</h4>
+						<blockquote class="blockquote text-center">
+							<br />
+							<h6 class="card-text">According to the percentage of Tops</h6>
+							<h4 class="mb-0">??????</h4>
+						</blockquote>
+					</div>
+					<br />
+
+					<!-- Ranking Buzz Widget -->
+					<div class="card">
+						<h4 class="card-header">Ranking Buzz</h4>
+						<blockquote class="blockquote text-center">
+							<br />
+							<h6 class="card-text">According to the number of total votes
+								(Tops + Flops)</h6>
+							<h4 class="mb-0">??????</h4>
+						</blockquote>
+					</div>
+					<br /> <br /> <br />
+
+					<!-- Categories Widget -->
+					<div class="card my-4">
+						<h4 class="card-header">Vote</h4>
+						<blockquote class="blockquote text-center">
+							<div class="form-group">
+								<br />
+								<c:if test="${alreadyVoted}">
+									<div class="alert alert-danger" role="alert">You have
+										already voted for this idea !</div>
+								</c:if>
+								<c:if test="${not alreadyVoted}">
+									<spring:url value="/idea/${i.id}?vote=top"
+										var="redirectVoteTop" />
+									<a class="btn btn-primary" href="${redirectVoteTop}">TOP</a>
+
+									<spring:url value="/idea/${i.id}?vote=flop"
+										var="redirectVoteFlop" />
+									<a class="btn btn-primary" href="${redirectVoteFlop}">FLOP</a>
+								</c:if>
+							</div>
+						</blockquote>
+					</div>
+
+				</div>
+				<!-- Sidebar Widgets Column -->
+
+			</div>
+			<!-- /.row -->
 
 		</div>
-		<!-- Post Content Column -->
-
-		<!-- Sidebar Widgets Column -->
-		<div class="col-md-4">
-			<br /> <br /> <br />
-
-			<!-- Date Widget -->
-			<div class="card">
-				<h4 class="card-header">Publication date</h4>
-				<blockquote class="blockquote text-center">
-					<h6 class="card-text"></h6>
-					<h4 class="mb-0">${i.dateCreation}</h4>
-				</blockquote>
-			</div>
-			<br />
-
-			<!-- Categories Widget -->
-			<div class="card">
-				<h4 class="card-header">Category</h4>
-				<blockquote class="blockquote text-center">
-					<h6 class="card-text"></h6>
-					<h4 class="mb-0">${i.category.name}</h4>
-				</blockquote>
-			</div>
-			<br /> <br /> <br />
-
-			<!-- Ranking Tops Widget -->
-			<div class="card">
-				<h4 class="card-header">Ranking Tops</h4>
-				<blockquote class="blockquote text-center">
-					<br />
-					<h6 class="card-text">According to the percentage of Tops</h6>
-					<h4 class="mb-0">??????</h4>
-				</blockquote>
-			</div>
-			<br />
-
-			<!-- Ranking Buzz Widget -->
-			<div class="card">
-				<h4 class="card-header">Ranking Buzz</h4>
-				<blockquote class="blockquote text-center">
-					<br />
-					<h6 class="card-text">According to the number of total votes
-						(Tops + Flops)</h6>
-					<h4 class="mb-0">??????</h4>
-				</blockquote>
-			</div>
-			<br /> <br /> <br />
-
-			<!-- Categories Widget -->
-			<div class="card my-4">
-				<h4 class="card-header">Vote</h4>
-				<blockquote class="blockquote text-center">
-					<div class="form-group">
-						<br />
-						<c:if test="${alreadyVoted}">
-							<div class="alert alert-danger" role="alert">
-							You have already voted for this idea !</div>
-						</c:if>
-						<c:if test="${not alreadyVoted}">
-							<spring:url value="/idea/${i.id}?vote=top" var="redirectVoteTop"/>
-							<a class="btn btn-primary" href="${redirectVoteTop}">TOP</a>
-							
-							<spring:url value="/idea/${i.id}?vote=flop" var="redirectVoteFlop"/>
-							<a class="btn btn-primary" href="${redirectVoteFlop}">FLOP</a>
-						</c:if>						
-					</div>
-				</blockquote>
-			</div>
-
-		</div>
-		<!-- Sidebar Widgets Column -->
-
-	</div>
-	<!-- /.row -->
-
-</div>
-</body>
-</html>
+		</body>
+		</html>
