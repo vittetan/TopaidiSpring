@@ -14,7 +14,6 @@ import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.model.persons.Admin;
 import topaidi.app.model.persons.Brain;
-import topaidi.app.model.persons.Person;
 
 @Controller
 @RequestMapping("/login")
@@ -25,7 +24,7 @@ public class LoginController {
 
 	@Autowired
 	AdminDao aDAo;
-
+	
 	@GetMapping
 	public String login(@ModelAttribute("action") String action,  Model m) {
 		if (action.equals("failed")) {

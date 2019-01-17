@@ -19,11 +19,13 @@
 <body>
 <div>
 
-<div class="login-subscribe">
-	<spring:url value="/login" var="loginRedirect"/>
-	<a href="${loginRedirect}" class="btn btn-primary btn-xs">Login</a>
+<div class="subscribe-login-signout">
 	<spring:url value="/newBrain" var="subscribeRedirect"/>
 	<a href="${subscribeRedirect}" class="btn btn-primary btn-xs">Subscribe</a>
+	<spring:url value="/login" var="loginRedirect"/>
+	<a href="${loginRedirect}" class="btn btn-primary btn-xs">Login</a>
+	<spring:url value="/home" var="signOut"/>
+	<a href="${signOut}" class="btn btn-primary btn-xs">Sign out</a>
 </div>
 
 <header>
@@ -36,7 +38,6 @@
 		
 <nav>
 	<a href="${home}" title="accueil">Home</a>
-	<a href="http://localhost:8080/topaidi/home" title="accueil">xxxxxxxx</a>
 	<a href="${newIdeaUrl}" title="newIdeaUrl">New Idea</a>
 	<a href="${rankingsUrl}" title="rankingsUrl">Rankings</a>
 </nav>
