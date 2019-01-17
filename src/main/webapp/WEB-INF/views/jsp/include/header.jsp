@@ -24,7 +24,7 @@
 	<a href="${subscribeRedirect}" class="btn btn-primary btn-xs">Subscribe</a>
 	<spring:url value="/login" var="loginRedirect"/>
 	<a href="${loginRedirect}" class="btn btn-primary btn-xs">Login</a>
-	<spring:url value="/home" var="signOut"/>
+	<spring:url value="/login/logout" var="signOut"/>
 	<a href="${signOut}" class="btn btn-primary btn-xs">Sign out</a>
 </div>
 

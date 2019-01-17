@@ -60,5 +60,13 @@ public class LoginController {
 		}
 		return "redirect:/login?action=failed";
 	}
+	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();		
+		return "redirect:/home";
+	}
+	
 
 }
