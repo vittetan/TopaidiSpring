@@ -88,11 +88,51 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse3">Collapsible Group 3</a>
+						href="#collapse3">Reports about the ideas</a>
 				</h4>
 			</div>
 			<div id="collapse3" class="panel-collapse collapse">
-				<div class="panel-body"></div>
+				<div class="panel-body">
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="row">Idea</th>
+								<th scope="col">Brain</th>
+								<th scope="col">Description</th>
+								<th scope="row">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${reportIdeas}" var="reportIdea">
+								<tr>
+									<spring:url  value="" var=""/>
+									<spring:url  value="" var=""/>
+									
+									<th scope="row">${idea.id}</th>
+									<td>
+										<spring:url  value="/idea/${reportIdea.idea.id}" var="viewIdea"/>
+										<a class="btn btn-success" href="${viewIdea}">View Idea</a>
+									</td>									
+									<td>${reportIdea.brain.pseudo}</td>
+									<td>${reportIdea.description}</td>
+									<td>
+										
+										<spring:url  value="/admin/desactivateBrain/${reportIdea.idea.brain.id}" var="desactivateBrain"/>
+										<a class="btn btn-danger" href="${desactivateBrain}" >Desactivate Idea's Brain</a>
+										
+										<spring:url  value="/admin/desactivateIdea/${reportIdea.idea.id}" var="desactivateIdea"/>
+										<a class="btn btn-danger" href="${desactivateIdea}">Desactivate Idea</a>
+										
+										<spring:url  value="/admin/deleteReportIdea/${reportIdea.id}" var="deleteReportIdea"/>
+										<a class="btn btn-danger" href="${deleteReportIdea}">Delete Report</a>
+
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

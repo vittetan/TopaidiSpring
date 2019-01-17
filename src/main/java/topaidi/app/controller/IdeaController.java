@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CommentDao;
 import topaidi.app.dao.IdeaDao;
+import topaidi.app.dao.ReportIdeaDao;
 import topaidi.app.dao.VoteDao;
 import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.persons.Brain;
+import topaidi.app.model.reports.ReportIdea;
 
 @Controller
 @RequestMapping("/idea")
@@ -36,6 +38,9 @@ public class IdeaController {
 
 	@Autowired
 	BrainDao bdao;
+	
+	@Autowired
+	ReportIdeaDao riDao;
 
 	// ------------------------------------------------------------------
 
@@ -64,6 +69,9 @@ public class IdeaController {
 		Vote v = new Vote();
 		v.setIdea(idea);
 		Brain brain = (Brain) session.getAttribute("person");
+		
+		ReportIdea reportIdea = new ReportIdea();
+		model.addAttribute("reportIdea", reportIdea);
 
 		boolean hasVoted = bdao.alreadyVoted(idea, brain);
 		model.addAttribute("alreadyVoted", hasVoted);
@@ -98,4 +106,15 @@ public class IdeaController {
 		return "redirect:/idea/" + n;
 	}
 
+	
+	@PostMapping("/{id}/report")
+	public String reportIdea(@PathVariable(value="id") int id, @ModelAttribute("reportIdea") ReportIdea reportIdea, HttpSession session) {
+		reportIdea.setId(0);
+		reportIdea.setIdea(idao.findByKey(id));
+		reportIdea.setBrain((Brain)session.getAttribute("person"));
+		riDao.insert(reportIdea);
+		
+		return "redirect:/idea/" + id;
+	}
+	
 }
