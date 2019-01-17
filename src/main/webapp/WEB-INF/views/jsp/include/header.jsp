@@ -31,11 +31,13 @@
 </header>
 
       <spring:url value="/home" var="home"/>
+      <spring:url value="/brain/0/newIdea" var="newIdeaUrl"/>
+      <spring:url value="/brain/0/rankings" var="rankingsUrl"/>
 		
 <nav>
 	<a href="${home}" title="accueil">Home</a>
 	<a href="http://localhost:8080/topaidi/home" title="accueil">xxxxxxxx</a>
-	<a href="http://localhost:8080/topaidi/home" title="cours">xxxxxxxx</a>
-	<a href="http://localhost:8080/topaidi/home">xxxxxxxx</a>
+	<a href="${newIdeaUrl}" title="newIdeaUrl">New Idea</a>
+	<a href="${rankingsUrl}" title="rankingsUrl">Rankings</a>
 </nav>
 </div>
