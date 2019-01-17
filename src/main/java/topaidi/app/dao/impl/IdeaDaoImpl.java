@@ -1,7 +1,9 @@
 package topaidi.app.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -185,18 +187,20 @@ public class IdeaDaoImpl implements IdeaDao {
 		ArrayList<Idea> allNotVotedIdeas = new ArrayList<Idea>();
 		boolean notVoted = false;
 		
-		for(int i=0; i < allIdeas.size(); i++) {
+		for(int i=0; i < 1; i++) {
 			int ideaBrainId = allIdeas.get(i).getBrain().getId();
-			if(ideaBrainId != brain.getId()) {
+			if(ideaBrainId == brain.getId()) {
 				notVoted = true;
-				ArrayList<Vote> allVotes= (ArrayList<Vote>) allIdeas.get(i).getVotes();
-				for(int j=0; j < allVotes.size(); j++) {
-					if(allVotes.get(j).getBrain().getId() == brain.getId()) {
+				
+				Set<Vote> allVotes = allIdeas.get(i).getVotes();
+				for (Vote v : allVotes) {
+					if(v.getBrain().getId() == brain.getId()) {
 						notVoted=false;
 						break;
 					}
-				}
+				}				
 			}
+			
 			if(notVoted) {
 				allNotVotedIdeas.add(allIdeas.get(i));
 			}

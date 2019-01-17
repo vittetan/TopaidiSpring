@@ -1,6 +1,9 @@
 package topaidi.app.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,7 @@ import topaidi.app.validator.IdeaValidator;
 
 @Controller
 @RequestMapping("/brain")
+@Transactional
 public class BrainController {
 
 	@Autowired
@@ -96,9 +100,12 @@ public class BrainController {
 		
 		Brain brain = (Brain)session.getAttribute("person");
 		model.addAttribute("rankingTop10", iDao.getRankingTop10());
+		ArrayList<Idea> notVotedTop = iDao.getAllNotVotedIdeas(brain, iDao.getRankingTop10());	
+		model.addAttribute("notVotedRankingTop10", notVotedTop);
 		model.addAttribute("rankingBuzz10", iDao.getRankingBuzz10());
+		//model.addAttribute("notVotedRankingBuzz10", iDao.getAllNotVotedIdeas(brain, iDao.getRankingBuzz10()));
 		model.addAttribute("rankingBrains", bDao.getRankingBrain());
-		
+				
 		return "/brain/rankings";
 	}
 	

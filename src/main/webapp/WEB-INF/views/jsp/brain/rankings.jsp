@@ -11,64 +11,82 @@
 <h1>WELCOME TO OUR RANKINGS</h1>	
 
 <br /> 
-	
-	<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        Ranking Tops</a>
-      </h4>
-    </div>
-    <div id="collapse1" class="panel-collapse collapse">
-      <div class="panel-body">
-      	<ol>
-	      	<c:forEach items="${rankingTop10}" var="top">
-				<li>${top.title}: ${top.category.name} 
-				</li>
-			</c:forEach>
-		</ol>
-	  </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Ranking Buzz</a>
-      </h4>
-    </div>
-    <div id="collapse2" class="panel-collapse collapse">
-      <div class="panel-body">
-		<ol>
-	    	<c:forEach items="${rankingBuzz10}" var="buzz">
-				<li>${buzz.title}: ${buzz.category.name}
-				</li>
-			</c:forEach>
-		</ol>
-	  </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Ranking Brains</a>
-      </h4>
-    </div>
-    <div id="collapse3" class="panel-collapse collapse">
-      <div class="panel-body">
-	  	<ol>
-	    	<c:forEach items="${rankingBrains}" var="brain">
-				<li>${brain.pseudo}
-				</li>
-			</c:forEach>
-		</ol>
-	  </div>
-    </div>
-  </div>
-</div>
 
+<div id="accordion">
+
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          Ranking Tops
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-parent="#accordion">
+        <div class="card-body">
+        	<ol>
+	          <c:forEach items="${rankingTop10}" var="top">
+					<li>${top.title}: ${top.category.name} 
+					</li>
+			  </c:forEach>
+			 </ol>
+		</div>
+      </div>
+    </div>
+
+	<div class="card">
+      <div class="card-header"  style="text-align:right;">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          However... you haven't voted for this Tops
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-parent="#accordion" >
+        <div class="card-body">
+        	<ol><c:forEach items="${notVotedRankingTop10}" var="top">
+					<li>${top.title}: ${top.category.name} 
+					</li>
+			  </c:forEach></ol>
+		</div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        Ranking Buzz
+      </a>
+      </div>
+      <div id="collapseTwo" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+        	<ol>
+	          <c:forEach items="${rankingBuzz10}" var="buzz">
+					<li>${buzz.title}: ${buzz.category.name}
+					</li>
+			  </c:forEach>
+			</ol>
+		</div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+          Ranking Brains
+        </a>
+      </div>
+      <div id="collapseThree" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            <ol>
+		    	<c:forEach items="${rankingBrains}" var="brain">
+					<li>${brain.pseudo}
+					</li>
+				</c:forEach>
+			</ol>
+		</div>
+      </div>
+    </div>
+    
+  </div>
+	
+	
 <br/>
 <spring:url value="/brain/${brain.id}" var="url"></spring:url>
 <a href="${url}" class="btn btn-primary btn-xs">Back</a>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
+import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportIdea;
 
 public interface IdeaDao extends GenericDao<Idea, Integer>{
@@ -20,5 +21,6 @@ public interface IdeaDao extends GenericDao<Idea, Integer>{
 	public ArrayList<Idea> getRankingTop10();
 	public ArrayList<Idea> getRankingBuzz();
 	public ArrayList<Idea> getRankingBuzz10();
+	public ArrayList<Idea> getAllNotVotedIdeas(Brain brain, ArrayList<Idea> allIdeas);
 		
 }
