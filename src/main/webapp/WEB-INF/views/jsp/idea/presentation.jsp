@@ -8,7 +8,6 @@
 <jsp:include page="../include/header.jsp" />
 
 <div>
-éééé
 	<!-- /.row -->
 	<div class="row">
 
