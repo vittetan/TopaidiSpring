@@ -150,10 +150,7 @@
 								<br />
 								<c:if test="${alreadyVoted}">
 
-									<div class="alert alert-danger" role="alert">You
-										already voted for this idea !</div>
-
-									<div class="alert alert-success" role="alert">You have already voted for this idea !</div>
+									<div class="alert alert-success" role="alert">You already voted for this idea !</div>
 
 								</c:if>
 								<c:if test="${not alreadyVoted}">

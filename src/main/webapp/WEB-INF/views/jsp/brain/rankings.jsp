@@ -29,8 +29,7 @@
 						<td>${top.title}</td>
 						<td>${top.category.name}</td>
 						<td>
-						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
-						<p> </p>
+							<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
 						</td>
 					</tr>
 			  </c:forEach>
@@ -70,7 +69,7 @@
 					<td>${buzz.title}</td>
 					<td>${buzz.category.name}</td>
 					<td>
-					<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
+						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
 					</td>
 				</tr>
 			  </c:forEach>
