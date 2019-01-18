@@ -64,7 +64,6 @@
         <div class="card-body">
         	<table class="table">
 	          <c:forEach items="${rankingBuzz10}" var="buzz">
-<<<<<<< HEAD
 	          	<spring:url value="/idea/${top.id}" var="ideaUrl"/>
 	          	<tr>
 					<td>${buzz.title}</td>
@@ -73,12 +72,6 @@
 					<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
 					</td>
 				</tr>
-=======
-	          	<spring:url value="/idea/${buzz.id}" var="ideaUrl"/>
-					<li>${buzz.title}: ${buzz.category.name}
-						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
-					</li>
->>>>>>> branch 'master' of https://github.com/vittetan/TopaidiSpring.git
 			  </c:forEach>
 			</table>
 		</div>
