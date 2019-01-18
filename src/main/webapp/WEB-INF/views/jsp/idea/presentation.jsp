@@ -55,6 +55,7 @@
 							<spring:url value="/idea/${i.id}/report" var="reportThisIdea"/>
 							<form:form method="POST" action="${reportThisIdea}" modelAttribute="reportIdea">
 								<form:input path="description" class="form-control" />
+								<br />
 								<button type="submit" class="btn btn-danger">Report this idea</button>
 							</form:form>
 						</div>
@@ -148,8 +149,12 @@
 							<div class="form-group">
 								<br />
 								<c:if test="${alreadyVoted}">
+
 									<div class="alert alert-danger" role="alert">You
 										already voted for this idea !</div>
+
+									<div class="alert alert-success" role="alert">You have already voted for this idea !</div>
+
 								</c:if>
 								<c:if test="${not alreadyVoted}">
 									<spring:url value="/idea/${i.id}?vote=top"
