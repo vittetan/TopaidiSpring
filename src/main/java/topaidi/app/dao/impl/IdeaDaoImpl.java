@@ -1,9 +1,7 @@
 package topaidi.app.dao.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -183,7 +181,7 @@ public class IdeaDaoImpl implements IdeaDao {
 		return rankingBuzz10;
 	}
 	
-	public ArrayList<Idea> getAllNotVotedIdeas(Brain brain, ArrayList<Idea> allIdeas){
+	/*public ArrayList<Idea> getAllNotVotedIdeas(Brain brain, ArrayList<Idea> allIdeas){
 		ArrayList<Idea> allNotVotedIdeas = new ArrayList<Idea>();
 		boolean notVoted = false;
 		
@@ -207,8 +205,17 @@ public class IdeaDaoImpl implements IdeaDao {
 		}
 		
 		return allNotVotedIdeas;		
+	}*/
+	public ArrayList<Idea> getAllNotVotedIdeas(Brain brain, ArrayList<Idea> allIdeas){
+		BrainDaoImpl bDao = new BrainDaoImpl();
+		ArrayList<Idea> allNotVotedIdeas = new ArrayList<Idea>();
+		for (Idea i : allIdeas) {
+			if(bDao.alreadyVoted(i,brain)){
+				allNotVotedIdeas.add(i);
+			}
+		}
+		return allNotVotedIdeas;
 	}
-	
 	
 	
 	
