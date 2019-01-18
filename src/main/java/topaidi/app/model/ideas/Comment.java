@@ -41,6 +41,7 @@ public class Comment {
 	
 
 	public Comment() {
+		setActivated(true);
 	}
 	
 	public Comment(Brain brain,Idea idea, String description) {
