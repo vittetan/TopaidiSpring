@@ -22,14 +22,18 @@
       </div>
       <div id="collapseOne" class="collapse show" data-parent="#accordion">
         <div class="card-body">
-        	<ol>
+        	<table class="table">
 	          <c:forEach items="${rankingTop10}" var="top">
 	          		<spring:url value="/idea/${top.id}" var="ideaUrl"/>
-					<li>${top.title}: ${top.category.name} 
+	          		<tr>
+						<td>${top.title}</td>
+						<td>${top.category.name}</td>
+						<td>
 						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
-					</li>
+						</td>
+					</tr>
 			  </c:forEach>
-			 </ol>
+			 </table>
 		</div>
       </div>
     </div>
@@ -58,14 +62,18 @@
       </div>
       <div id="collapseTwo" class="collapse" data-parent="#accordion">
         <div class="card-body">
-        	<ol>
+        	<table class="table">
 	          <c:forEach items="${rankingBuzz10}" var="buzz">
 	          	<spring:url value="/idea/${top.id}" var="ideaUrl"/>
-					<li>${buzz.title}: ${buzz.category.name}
-						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
-					</li>
+	          	<tr>
+					<td>${buzz.title}</td>
+					<td>${buzz.category.name}</td>
+					<td>
+					<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
+					</td>
+				</tr>
 			  </c:forEach>
-			</ol>
+			</table>
 		</div>
       </div>
     </div>
