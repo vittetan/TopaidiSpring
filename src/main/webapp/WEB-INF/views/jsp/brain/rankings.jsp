@@ -30,6 +30,7 @@
 						<td>${top.category.name}</td>
 						<td>
 						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
+						<p> </p>
 						</td>
 					</tr>
 			  </c:forEach>
@@ -64,7 +65,7 @@
         <div class="card-body">
         	<table class="table">
 	          <c:forEach items="${rankingBuzz10}" var="buzz">
-	          	<spring:url value="/idea/${top.id}" var="ideaUrl"/>
+	          	<spring:url value="/idea/${buzz.id}" var="ideaUrl"/>
 	          	<tr>
 					<td>${buzz.title}</td>
 					<td>${buzz.category.name}</td>
