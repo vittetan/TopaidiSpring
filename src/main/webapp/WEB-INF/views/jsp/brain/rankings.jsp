@@ -60,7 +60,7 @@
         <div class="card-body">
         	<ol>
 	          <c:forEach items="${rankingBuzz10}" var="buzz">
-	          	<spring:url value="/idea/${top.id}" var="ideaUrl"/>
+	          	<spring:url value="/idea/${buzz.id}" var="ideaUrl"/>
 					<li>${buzz.title}: ${buzz.category.name}
 						<a class="btn btn-info btn-xs" href="${ideaUrl}">View Idea</a>
 					</li>
