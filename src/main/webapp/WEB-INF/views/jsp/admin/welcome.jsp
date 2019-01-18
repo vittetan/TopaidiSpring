@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="../include/header.jsp" />
 
@@ -14,7 +15,7 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse1">Unvalidated Brains</a>
+						href="#collapse1">Unvalidated Brains (${fn:length(unvalidatedUsers)})</a>
 				</h4>
 			</div>
 			<div id="collapse1" class="panel-collapse collapse">
@@ -94,7 +95,7 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse3">Reports about the ideas</a>
+						href="#collapse3">Reports about the ideas (${fn:length(reportIdeas)})</a>
 				</h4>
 			</div>
 			<div id="collapse3" class="panel-collapse collapse">
@@ -136,16 +137,11 @@
 				</div>
 			</div>
 		</div>
-
-
-
-
-
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapse4">Reports about the comments</a>
+						href="#collapse4">Reports about the comments (${fn:length(reportComments)})</a>
 				</h4>
 			</div>
 			<div id="collapse4" class="panel-collapse collapse">
@@ -168,7 +164,15 @@
 									<td>${reportComment.brain.pseudo}</td>
 									<td>${reportComment.description}</td>
 									<td>
-										les boutons
+										<spring:url value="/admin/desactivateBrain/${reportComment.comment.brain.id}" var="desactivateBrain"/>
+										<a class="btn btn-danger" href="${desactivateBrain}">Desactivate Brain</a>
+										
+										<spring:url value="/admin/desactivateComment/${reportComment.comment.id}" var="desactivateComment"/>
+										<a class="btn btn-danger" href="${desactivateComment}">Desactivate Comment</a>
+										
+										<spring:url value="/admin/deleteReportComment/${reportComment.id}" var="deleteReportComment" /> 
+										<a class="btn btn-danger" href="${deleteReportComment}">Delete Report</a>
+										
 									</td>
 								</tr>
 							</c:forEach>

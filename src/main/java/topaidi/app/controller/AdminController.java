@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import topaidi.app.dao.AdminDao;
 import topaidi.app.dao.BrainDao;
 import topaidi.app.dao.CategoryDao;
+import topaidi.app.dao.CommentDao;
 import topaidi.app.dao.IdeaDao;
 import topaidi.app.dao.ReportCommentDao;
 import topaidi.app.dao.ReportIdeaDao;
 import topaidi.app.model.categories.Category;
+import topaidi.app.model.ideas.Comment;
 import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.persons.Admin;
 import topaidi.app.model.persons.Brain;
@@ -36,7 +38,7 @@ public class AdminController {
 	BrainDao bDao;
 	
 	@Autowired
-	CategoryDao cDao;
+	CategoryDao caDao;
 	
 	@Autowired
 	ReportIdeaDao riDao;
@@ -47,13 +49,16 @@ public class AdminController {
 	@Autowired
 	ReportCommentDao rcDao;
 	
+	@Autowired
+	CommentDao cmDao;
+	
 	
 	@GetMapping("/{id}/welcome")
 	public String home(Model model) {
 			List<Brain> brains =  aDao.getUnValidatedBrains();
 		
 			model.addAttribute("unvalidatedUsers", brains);
-			model.addAttribute("categories", cDao.findAll());
+			model.addAttribute("categories", caDao.findAll());
 			model.addAttribute("newCategory", new Category());
 			model.addAttribute("reportIdeas", riDao.findAll());
 			model.addAttribute("reportComments",rcDao.findAll());
@@ -72,7 +77,7 @@ public class AdminController {
 	
 	@PostMapping("/addCategory")
 	public String addCategory(@ModelAttribute("newCategory") Category newCategory, HttpSession session, Model model) {
-		cDao.insert(newCategory);		
+		caDao.insert(newCategory);		
 		Admin admin = (Admin)session.getAttribute("person");
 		return "redirect:/admin/" + admin.getId() + "/welcome";
 	}
@@ -99,6 +104,18 @@ public class AdminController {
 		return "redirect:/admin/" + admin.getId() + "/welcome";
 	}
 	
+	
+	@GetMapping("desactivateComment/{id}")
+	public String desactivateComment(@PathVariable(value="id") int id ,HttpSession session) {
+		Comment comment = cmDao.findByKey(id);
+		comment.setActivated(false);
+		cmDao.update(comment);
+			
+		Admin admin = (Admin)session.getAttribute("person");
+		return "redirect:/admin/" + admin.getId() + "/welcome";
+	}
+	
+	
 	@GetMapping("/deleteReportIdea/{id}")
 	public String deleteReportIdea(@PathVariable(value="id") int id, HttpSession session) {
 		riDao.deleteByKey(id);
@@ -106,6 +123,12 @@ public class AdminController {
 		Admin admin = (Admin)session.getAttribute("person");
 		return "redirect:/admin/" + admin.getId() + "/welcome";
 	}
-	
-	
+		
+	@GetMapping("/deleteReportComment/{id}")
+	public String deleteReportComment(@PathVariable(value="id") int id, HttpSession session) {
+		rcDao.deleteByKey(id);
+		
+		Admin admin = (Admin)session.getAttribute("person");
+		return "redirect:/admin/" + admin.getId() + "/welcome";
+	}
 }
