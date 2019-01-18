@@ -121,23 +121,22 @@
 
 					<!-- Ranking Tops Widget -->
 					<div class="card">
-						<h4 class="card-header">Ranking Tops</h4>
+						<h4 class="card-header">So much Tops!</h4>
 						<blockquote class="blockquote text-center">
 							<br />
-							<h6 class="card-text">According to the percentage of Tops</h6>
-							<h4 class="mb-0">??????</h4>
+							<h6 class="card-text">This idea has received </h6>
+							<h4 class="mb-0">${ideaTops} Tops</h4>
 						</blockquote>
 					</div>
 					<br />
 
 					<!-- Ranking Buzz Widget -->
 					<div class="card">
-						<h4 class="card-header">Ranking Buzz</h4>
+						<h4 class="card-header">Everyone's looking around!</h4>
 						<blockquote class="blockquote text-center">
 							<br />
-							<h6 class="card-text">According to the number of total votes
-								(Tops + Flops)</h6>
-							<h4 class="mb-0">??????</h4>
+							<h6 class="card-text">This idea has received </h6>
+							<h4 class="mb-0">${ideaVotes} Votes</h4>
 						</blockquote>
 					</div>
 					<br /> <br /> <br />

@@ -11,14 +11,16 @@
 <spring:url value="/brain/${brainId}/newIdea" var="newIdeaUrl"/>
 <spring:url value="/brain/${brainId}/rankings" var="rankingsUrl"/>
 
-<h1>WELCOME BRAIN</h1>	
+<h1>WELCOME BRILLIANT BRAIN</h1>
+<h2>How are you today <strong style="color:Blue;"><i>${brainPseudo}</i></strong>?</h2>
+<h3>There is not need to say we hope you are feeling okay to share you ideas or your opinions.</h3>
 	
 	<div class="brain">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-black">New Idea ?</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h3 class="text-faded mb-4">Is everything ringing a bell in your head?</h3>
             <a href="${newIdeaUrl}" class="btn btn-light btn-xl js-scroll-trigger">Let's share a new idea !</a>
           </div>
         </div>
@@ -31,7 +33,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-black">Rankings</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h3 class="text-faded mb-4">Take a look of our community best thoughts...</h3>
             <a href="${rankingsUrl}" class="btn btn-light btn-xl js-scroll-trigger">Go to the Rankings !</a>
           </div>
         </div>

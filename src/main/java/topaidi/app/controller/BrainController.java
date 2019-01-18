@@ -42,6 +42,7 @@ public class BrainController {
 			if (pers != null) {
 				Brain b = (Brain)pers;
 				model.addAttribute("brainId", b.getId());
+				model.addAttribute("brainPseudo", b.getPseudo());
 			}
 			return "/brain/welcome";
  	}
@@ -100,8 +101,8 @@ public class BrainController {
 		
 		Brain brain = (Brain)session.getAttribute("person");
 		model.addAttribute("rankingTop10", iDao.getRankingTop10());
-		ArrayList<Idea> notVotedTop = iDao.getAllNotVotedIdeas(brain, iDao.getRankingTop10());	
-		model.addAttribute("notVotedRankingTop10", notVotedTop);
+		//ArrayList<Idea> notVotedTop = iDao.getAllNotVotedIdeas(brain, iDao.getRankingTop10());	
+		//model.addAttribute("notVotedRankingTop10", notVotedTop);
 		model.addAttribute("rankingBuzz10", iDao.getRankingBuzz10());
 		//model.addAttribute("notVotedRankingBuzz10", iDao.getAllNotVotedIdeas(brain, iDao.getRankingBuzz10()));
 		model.addAttribute("rankingBrains", bDao.getRankingBrain());

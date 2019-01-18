@@ -149,7 +149,7 @@ public class IdeaDaoImpl implements IdeaDao {
 		ArrayList<Idea> allIdeast = allIdeas;
 		ArrayList<Idea> rankingBuzz = new ArrayList<Idea>();
 		
-		for (int i = 0; i < allIdeas.size() - 1; i++) {
+		for (int i = 0; i < allIdeas.size(); i++) {
 			Idea ideaI = (Idea) allIdeas.get(i);
 			Integer idI = ideaI.getId();
 			for (int j = i + 1; j < allIdeas.size(); j++) {
@@ -208,6 +208,9 @@ public class IdeaDaoImpl implements IdeaDao {
 		
 		return allNotVotedIdeas;		
 	}
+	
+	
+	
 	
 	
 	

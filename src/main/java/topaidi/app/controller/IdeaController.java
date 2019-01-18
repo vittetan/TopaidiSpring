@@ -91,7 +91,9 @@ public class IdeaController {
 		}
 		
 		model.addAttribute("alreadyVoted", hasVoted);
-
+		model.addAttribute("ideaTops", idao.getAllTops(id));
+		model.addAttribute("ideaVotes", idao.getNombreVotes(id));
+		
 		ReportIdea reportIdea = new ReportIdea();
 		model.addAttribute("reportIdea", reportIdea);
 		

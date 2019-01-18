@@ -38,7 +38,7 @@
       </div>
     </div>
 
-	<div class="card">
+	<!--  <div class="card">
       <div class="card-header"  style="text-align:right;">
         <a class="card-link" data-toggle="collapse" href="#collapseOne">
           However... you haven't voted for this Tops
@@ -52,7 +52,7 @@
 			  </c:forEach></ol>
 		</div>
       </div>
-    </div>
+    </div>-->
     
     <div class="card">
       <div class="card-header">
