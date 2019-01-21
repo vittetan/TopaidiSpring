@@ -17,10 +17,14 @@
 
 <div>
 
-	<h1>Welcome to Topaidi. We are the best!</h1>
-	<br /> 
+	<h1>Welcome to Topaidi. The only network to share ideas!</h1>
+	
 
-	<h3>Hello dear. Wanna check the coolest ideas on Topaidi?</h3>
+	<h4>Hello! Joining Topaidi will let you share you own ideas and evaluate <i><b style="font-size:60%">(Top if you like if, Flop if not so much)</b></i> and comment other brains' ideas.  </h4>
+
+	<h4>Our rankings will show you the best noted ideas <i>(Ranking Top)</i>, the most voted ideas <i>(Ranking Buzz)</i>, and the most active brains <i>(Ranking Brains).</i></h4>
+		
+	<h3>Wanna check the coolest ideas on Topaidi?</h3>
 	
 	  <br/>
 	  <hr>

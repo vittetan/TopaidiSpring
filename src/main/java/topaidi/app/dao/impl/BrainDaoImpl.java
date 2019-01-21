@@ -1,7 +1,11 @@
 package topaidi.app.dao.impl;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,6 +22,7 @@ import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportComment;
 import topaidi.app.model.reports.ReportIdea;
+import topaidi.app.model.temp.RankBrain;
 
 @Repository
 @Transactional
@@ -110,24 +115,20 @@ public class BrainDaoImpl implements BrainDao {
 	@Override
 	public ArrayList<Brain> getRankingBrain() {
 		ArrayList<Brain> allBrains = (ArrayList<Brain>) findAll();
-		ArrayList<Brain> allBrainst = allBrains;
-		ArrayList<Brain> rankingBrain = new ArrayList<Brain>();
+		List<RankBrain> allBrainst = new ArrayList<RankBrain>();
+		List<Brain> rankingBrain = new ArrayList<Brain>();
 		
-		for (int i = 0; i < allBrains.size() - 1; i++) {
-			Brain brainI = (Brain) allBrains.get(i);
-			Integer idI = brainI.getId();
-			for (int j = i + 1; j < allBrains.size(); j++) {
-				Brain ideaJ = (Brain) allBrains.get(j);
-				Integer idJ = ideaJ.getId();
-				if (getNombreIdeas(idJ) > getNombreIdeas(idI)) {
-					brainI = ideaJ;
-					allBrains.set(j,allBrainst.get(i));
-				} 
-			}
-			rankingBrain.add(brainI);
+		for(Brain brain:allBrains) {
+			allBrainst.add(new RankBrain(brain.getIdeas().size(), brain));
 		}
-
-		return rankingBrain;
+		
+		allBrainst.sort(Comparator.comparingInt(RankBrain::getNumberIdeas).reversed());
+				
+		for(RankBrain rb:allBrainst) {
+			rankingBrain.add(rb.getBrain());
+		}
+		
+		return (ArrayList<Brain>) rankingBrain;
 	}
 
 	@Override

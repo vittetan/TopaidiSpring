@@ -5,13 +5,12 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import topaidi.app.model.ideas.Idea;
-import topaidi.app.model.persons.Brain;
 
 public class IdeaValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Brain.class.equals(clazz);
+		return Idea.class.equals(clazz);
 	}
 	
 	@Override

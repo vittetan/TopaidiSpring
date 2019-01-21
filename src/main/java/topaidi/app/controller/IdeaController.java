@@ -25,6 +25,8 @@ import topaidi.app.model.persons.Admin;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportComment;
 import topaidi.app.model.reports.ReportIdea;
+import topaidi.app.validator.CommentValidator;
+import topaidi.app.validator.ReportValidator;
 
 @Controller
 @RequestMapping("/idea")
@@ -104,7 +106,7 @@ public class IdeaController {
 				v.setTop(true);
 				v.setBrain(brain);
 				vdao.insert(v);
-				return "redirect:/idea/" + idea.getId();
+				return "redirect:/idea/" + id;
 			} else if (vote.equals("flop")) {
 				v.setTop(false);
 				v.setBrain(brain);
@@ -117,7 +119,11 @@ public class IdeaController {
 	}
 
 	@PostMapping("/{id}")
-	public String addComment(@ModelAttribute("comm") Comment comment, BindingResult result, HttpSession session) {
+	public String addComment(@PathVariable(value="id") int id, @ModelAttribute("comm") Comment comment, BindingResult result, HttpSession session) {
+		new CommentValidator().validate(comment, result);
+		if (result.hasErrors()) {
+			return "redirect:/idea/" + id;
+		}
 		comment.setId(0);
 		comment.setBrain((Brain) session.getAttribute("person"));
 
@@ -129,7 +135,11 @@ public class IdeaController {
 
 	
 	@PostMapping("/{id}/report")
-	public String reportIdea(@PathVariable(value="id") int id, @ModelAttribute("reportIdea") ReportIdea reportIdea, HttpSession session) {
+	public String reportIdea(@PathVariable(value="id") int id, @ModelAttribute("reportIdea") ReportIdea reportIdea, BindingResult result, HttpSession session) {
+		new ReportValidator().validate(reportIdea, result);
+		if (result.hasErrors()) {
+			return "redirect:/idea/" + id;
+		}
 		reportIdea.setId(0);
 		reportIdea.setIdea(idao.findByKey(id));
 		reportIdea.setBrain((Brain)session.getAttribute("person"));

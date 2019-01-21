@@ -54,7 +54,11 @@
 						<div class="panel-body">
 							<spring:url value="/idea/${i.id}/report" var="reportThisIdea"/>
 							<form:form method="POST" action="${reportThisIdea}" modelAttribute="reportIdea">
+							<spring:hasBindErrors name="reportIdea">
+								<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
+							</spring:hasBindErrors>
 								<form:input path="description" class="form-control" />
+								<form:errors path="description" type="text" style="${errorClass}"/>
 								<br />
 								<button type="submit" class="btn btn-danger">Report this idea</button>
 							</form:form>
@@ -68,9 +72,13 @@
 						<h4 class="card-header">Leave a Comment:</h4>
 						<div class="card-body">
 							<form:form method="POST" action="" modelAttribute="comm">
+								<spring:hasBindErrors name="comm">
+									<c:set var="errorClass" value="font-family:verdana; font-weight:bold; font-style:italic; color:red; font-size:0.875em;"></c:set> 
+								</spring:hasBindErrors>
 								<form:input path="idea.id" type="hidden" />
 								<div class="form-group">
 									<form:input class="form-control" path="description" />
+									<form:errors path="description" type="text" style="${errorClass}"/>
 								</div>
 								<button type="submit" class="btn btn-primary">Submit
 									Comment</button>

@@ -1,5 +1,6 @@
 package topaidi.app.model.ideas;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,10 +37,10 @@ public class Idea {
 	private String image;
 	
 	@Column
-	private Date dateCreation;
+	private LocalDateTime dateCreation;
 	
 	@Column
-	private Date dateEnd;
+	private LocalDateTime dateEnd;
 	
 	@Column
 	private boolean isActivated;
@@ -151,20 +152,20 @@ public class Idea {
 		this.image = image;
 	}
 
-	public Date getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
 	public void setDateCreation() {
-		this.dateCreation = new Date();;
+		this.dateCreation = LocalDateTime.now();
 	}
 
-	public Date getDateEnd() {
+	public LocalDateTime getDateEnd() {
 		return dateEnd;
 	}
 
 	public void setDateEnd() {
-		this.dateEnd = new Date();
+		this.dateEnd = dateCreation.plusDays(7);
 	}
 
 	public boolean isActivated() {

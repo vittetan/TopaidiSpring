@@ -1,6 +1,7 @@
 package topaidi.app.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,8 @@ import topaidi.app.model.ideas.Idea;
 import topaidi.app.model.ideas.Vote;
 import topaidi.app.model.persons.Brain;
 import topaidi.app.model.reports.ReportIdea;
+import topaidi.app.model.temp.RankBrain;
+import topaidi.app.model.temp.RankIdea;
 
 @Repository
 @Transactional
@@ -96,33 +99,23 @@ public class IdeaDaoImpl implements IdeaDao {
 
 	@Override
 	public ArrayList<Idea> getRankingTop() {
-
-		ArrayList<Idea> rankingTop = new ArrayList<Idea>();
+		
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
-		ArrayList<Idea> allIdeast = allIdeas;
-
-		for (int i = 0; i < allIdeas.size(); i++) {
-			Idea ideaI = (Idea) allIdeas.get(i);
-			Integer idI = ideaI.getId();
-			for (int j = i + 1; j < allIdeas.size(); j++) {	
-				Idea ideaJ = (Idea) allIdeas.get(j);
-				Integer idJ = ideaJ.getId();
-
-				if (getPercentTop(idJ) > getPercentTop(idI)) {
-					ideaI = ideaJ;
-					allIdeas.set(j,allIdeast.get(i));
-				} else {
-					if(getPercentTop(idJ) == getPercentTop(idI)) {
-						if(getNombreVotes(idJ) > getNombreVotes(idI)) {
-							ideaI = ideaJ;
-							allIdeas.set(j,allIdeast.get(i));
-						}
-					}
-				}
-			}
-			rankingTop.add(ideaI);
+		List<RankIdea> allIdeast = new ArrayList<RankIdea>();
+		List<Idea> rankingTop = new ArrayList<Idea>();
+		
+		for(Idea idea:allIdeas) {
+			allIdeast.add(new RankIdea(idea.getVotes().size(), getPercentTop(idea.getId()), idea));
 		}
-		return rankingTop;
+		
+		allIdeast.sort(Comparator.comparingDouble(RankIdea::getPercentTops).reversed());
+		allIdeast.sort(Comparator.comparingInt(RankIdea::getNumberVotes).reversed());
+				
+		for(RankIdea ri:allIdeast) {
+			rankingTop.add(ri.getIdea());
+		}
+
+		return (ArrayList<Idea>) rankingTop;
 	}
 
 	public ArrayList<Idea> getRankingTop10() {
@@ -144,24 +137,20 @@ public class IdeaDaoImpl implements IdeaDao {
 
 	public ArrayList<Idea> getRankingBuzz() {
 		ArrayList<Idea> allIdeas = (ArrayList<Idea>) findAll();
-		ArrayList<Idea> allIdeast = allIdeas;
-		ArrayList<Idea> rankingBuzz = new ArrayList<Idea>();
+		List<RankIdea> allIdeast = new ArrayList<RankIdea>();
+		List<Idea> rankingBuzz = new ArrayList<Idea>();
 		
-		for (int i = 0; i < allIdeas.size(); i++) {
-			Idea ideaI = (Idea) allIdeas.get(i);
-			Integer idI = ideaI.getId();
-			for (int j = i + 1; j < allIdeas.size(); j++) {
-				Idea ideaJ = (Idea) allIdeas.get(j);
-				Integer idJ = ideaJ.getId();
-				if (getNombreVotes(idJ) > getNombreVotes(idI)) {
-					ideaI = ideaJ;
-					allIdeas.set(j,allIdeast.get(i));
-				} 
-			}
-			rankingBuzz.add(ideaI);
+		for(Idea idea:allIdeas) {
+			allIdeast.add(new RankIdea(idea.getVotes().size(), getPercentTop(idea.getId()), idea));
 		}
-
-		return rankingBuzz;
+		
+		allIdeast.sort(Comparator.comparingInt(RankIdea::getNumberVotes).reversed());
+				
+		for(RankIdea ri:allIdeast) {
+			rankingBuzz.add(ri.getIdea());
+		}
+		
+		return (ArrayList<Idea>) rankingBuzz;
 	}
 
 	public ArrayList<Idea> getRankingBuzz10() {

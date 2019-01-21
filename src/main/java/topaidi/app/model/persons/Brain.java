@@ -56,7 +56,7 @@ public class Brain extends Person {
 		this.reportIdeas = new HashSet<ReportIdea>();
 		this.reportComments = new HashSet<ReportComment>();
 	}
-
+	
 	public boolean isValidated() {
 		return isValidated;
 	}
